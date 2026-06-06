@@ -17,6 +17,29 @@ export interface WebSocketLike {
 
 export type CreateSocket = (url: string) => WebSocketLike
 
+/** ネイティブ WebSocket を WebSocketLike へ適合させる既定ファクトリ */
+const createNativeSocket: CreateSocket = (url) => {
+    const ws = new WebSocket(url)
+    const wrapper: WebSocketLike = {
+        get readyState() {
+            return ws.readyState
+        },
+        send: (data) => {
+            ws.send(data)
+        },
+        close: () => {
+            ws.close()
+        },
+        onopen: null,
+        onclose: null,
+        onerror: null,
+    }
+    ws.onopen = () => wrapper.onopen?.()
+    ws.onclose = () => wrapper.onclose?.()
+    ws.onerror = () => wrapper.onerror?.()
+    return wrapper
+}
+
 export interface TeleopClientOptions {
     readonly createSocket?: CreateSocket
     readonly sendIntervalMs?: number
@@ -49,7 +72,7 @@ const INITIAL_STATE: TeleopSnapshot = { status: "idle", axes: STOP_AXES }
  */
 export function createTeleopClient(options: TeleopClientOptions = {}): TeleopClient {
     const {
-        createSocket = (url) => new WebSocket(url),
+        createSocket = createNativeSocket,
         sendIntervalMs = SEND_INTERVAL_MS,
         reconnectDelayMs = RECONNECT_DELAY_MS,
     } = options

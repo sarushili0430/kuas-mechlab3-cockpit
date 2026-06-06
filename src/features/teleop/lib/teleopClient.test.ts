@@ -50,7 +50,15 @@ function setup(options: { sendIntervalMs?: number; reconnectDelayMs?: number } =
         sendIntervalMs: options.sendIntervalMs ?? 50,
         reconnectDelayMs: options.reconnectDelayMs ?? 1000,
     })
-    return { client, sockets }
+    /** index 番目に生成されたソケット(未生成ならテスト失敗) */
+    const socket = (index: number): FakeSocket => {
+        const found = sockets.at(index)
+        if (found === undefined) {
+            throw new Error(`socket #${String(index)} はまだ生成されていない`)
+        }
+        return found
+    }
+    return { client, sockets, socket }
 }
 
 describe("createTeleopClient", () => {
@@ -68,40 +76,40 @@ describe("createTeleopClient", () => {
     })
 
     it("connect で指定 URL へ接続を開始し connecting になる", () => {
-        const { client, sockets } = setup()
+        const { client, sockets, socket } = setup()
         client.connect("ws://192.168.1.42:9001")
 
         expect(sockets).toHaveLength(1)
-        expect(sockets[0].url).toBe("ws://192.168.1.42:9001")
+        expect(socket(0).url).toBe("ws://192.168.1.42:9001")
         expect(client.getSnapshot().status).toBe("connecting")
     })
 
     it("ソケットが開くと open になる", () => {
-        const { client, sockets } = setup()
+        const { client, socket } = setup()
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
 
         expect(client.getSnapshot().status).toBe("open")
     })
 
     it("open 中は送信間隔ごとに現在の軸を JSON で送り続ける(ハートビート)", () => {
-        const { client, sockets } = setup({ sendIntervalMs: 50 })
+        const { client, socket } = setup({ sendIntervalMs: 50 })
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
 
         vi.advanceTimersByTime(150)
-        expect(sockets[0].sent).toEqual(['{"vx":0,"wz":0}', '{"vx":0,"wz":0}', '{"vx":0,"wz":0}'])
+        expect(socket(0).sent).toEqual(['{"vx":0,"wz":0}', '{"vx":0,"wz":0}', '{"vx":0,"wz":0}'])
     })
 
     it("setAxes した値が次の送信から反映される", () => {
-        const { client, sockets } = setup({ sendIntervalMs: 50 })
+        const { client, socket } = setup({ sendIntervalMs: 50 })
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
 
         client.setAxes({ vx: 1, wz: -0.5 })
         vi.advanceTimersByTime(50)
 
-        expect(sockets[0].sent.at(-1)).toBe('{"vx":1,"wz":-0.5}')
+        expect(socket(0).sent.at(-1)).toBe('{"vx":1,"wz":-0.5}')
         expect(client.getSnapshot().axes).toEqual({ vx: 1, wz: -0.5 })
     })
 
@@ -112,51 +120,51 @@ describe("createTeleopClient", () => {
     })
 
     it("接続が切れると送信を止め、待ち時間の後に同じ URL へ再接続する", () => {
-        const { client, sockets } = setup({ reconnectDelayMs: 1000 })
+        const { client, sockets, socket } = setup({ reconnectDelayMs: 1000 })
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
 
-        sockets[0].simulateClose()
+        socket(0).simulateClose()
         expect(client.getSnapshot().status).toBe("reconnecting")
 
         vi.advanceTimersByTime(200)
-        expect(sockets[0].sent).toEqual([])
+        expect(socket(0).sent).toEqual([])
 
         vi.advanceTimersByTime(800)
         expect(sockets).toHaveLength(2)
-        expect(sockets[1].url).toBe("ws://pi:9001")
+        expect(socket(1).url).toBe("ws://pi:9001")
         expect(client.getSnapshot().status).toBe("connecting")
     })
 
     it("エラー時はソケットを閉じる(close 経由で再接続フローに乗る)", () => {
-        const { client, sockets } = setup()
+        const { client, socket } = setup()
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
 
-        sockets[0].simulateError()
-        expect(sockets[0].closeCalls).toBe(1)
+        socket(0).simulateError()
+        expect(socket(0).closeCalls).toBe(1)
     })
 
     it("disconnect は停止指令を送ってから切断し idle へ戻る", () => {
-        const { client, sockets } = setup()
+        const { client, socket } = setup()
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
         client.setAxes({ vx: 1, wz: 0 })
 
         client.disconnect()
 
-        expect(sockets[0].sent.at(-1)).toBe('{"vx":0,"wz":0}')
-        expect(sockets[0].closeCalls).toBe(1)
+        expect(socket(0).sent.at(-1)).toBe('{"vx":0,"wz":0}')
+        expect(socket(0).closeCalls).toBe(1)
         expect(client.getSnapshot()).toEqual({ status: "idle", axes: { vx: 0, wz: 0 } })
     })
 
     it("disconnect 後にソケットの close イベントが届いても再接続しない", () => {
-        const { client, sockets } = setup()
+        const { client, sockets, socket } = setup()
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
 
         client.disconnect()
-        sockets[0].simulateClose()
+        socket(0).simulateClose()
         vi.advanceTimersByTime(5000)
 
         expect(sockets).toHaveLength(1)
@@ -164,10 +172,10 @@ describe("createTeleopClient", () => {
     })
 
     it("再接続待ちの間に disconnect すると再接続を取りやめる", () => {
-        const { client, sockets } = setup({ reconnectDelayMs: 1000 })
+        const { client, sockets, socket } = setup({ reconnectDelayMs: 1000 })
         client.connect("ws://pi:9001")
-        sockets[0].simulateOpen()
-        sockets[0].simulateClose()
+        socket(0).simulateOpen()
+        socket(0).simulateClose()
 
         client.disconnect()
         vi.advanceTimersByTime(5000)
@@ -177,31 +185,31 @@ describe("createTeleopClient", () => {
     })
 
     it("接続中に別 URL へ connect すると旧接続を止めて切り替える", () => {
-        const { client, sockets } = setup()
+        const { client, sockets, socket } = setup()
         client.connect("ws://pi-a:9001")
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
         client.setAxes({ vx: 1, wz: 0 })
 
         client.connect("ws://pi-b:9001")
 
         // 旧機体には停止指令を送ってから閉じる
-        expect(sockets[0].sent.at(-1)).toBe('{"vx":0,"wz":0}')
-        expect(sockets[0].closeCalls).toBe(1)
+        expect(socket(0).sent.at(-1)).toBe('{"vx":0,"wz":0}')
+        expect(socket(0).closeCalls).toBe(1)
         expect(sockets).toHaveLength(2)
-        expect(sockets[1].url).toBe("ws://pi-b:9001")
+        expect(socket(1).url).toBe("ws://pi-b:9001")
         // 操縦中の軸はリセットされる(新しい機体に旧指令を引き継がない)
         expect(client.getSnapshot()).toEqual({ status: "connecting", axes: { vx: 0, wz: 0 } })
     })
 
     it("状態変化を購読でき、解除後は通知されない", () => {
-        const { client, sockets } = setup()
+        const { client, socket } = setup()
         const listener = vi.fn()
         const unsubscribe = client.subscribe(listener)
 
         client.connect("ws://pi:9001")
         expect(listener).toHaveBeenCalledTimes(1)
 
-        sockets[0].simulateOpen()
+        socket(0).simulateOpen()
         expect(listener).toHaveBeenCalledTimes(2)
 
         unsubscribe()

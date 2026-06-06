@@ -3,18 +3,22 @@ import { createTeleopClient, type WebSocketLike } from "../lib/teleopClient"
 import { useTeleop } from "./useTeleop"
 
 function createFakeSocket(): WebSocketLike & { simulateOpen: () => void } {
-    return {
-        readyState: 0,
+    let ready = 0
+    const socket: WebSocketLike & { simulateOpen: () => void } = {
+        get readyState() {
+            return ready
+        },
         send: vi.fn(),
         close: vi.fn(),
         onopen: null,
         onclose: null,
         onerror: null,
         simulateOpen() {
-            this.readyState = 1
-            this.onopen?.()
+            ready = 1
+            socket.onopen?.()
         },
     }
+    return socket
 }
 
 describe("useTeleop", () => {
@@ -42,7 +46,7 @@ describe("useTeleop", () => {
         expect(result.current.status).toBe("connecting")
 
         act(() => {
-            sockets[0].simulateOpen()
+            sockets.at(0)?.simulateOpen()
         })
         expect(result.current.status).toBe("open")
 

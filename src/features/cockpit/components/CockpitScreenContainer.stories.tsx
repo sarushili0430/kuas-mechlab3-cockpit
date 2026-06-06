@@ -4,8 +4,11 @@ import { CockpitScreenContainer } from "./CockpitScreenContainer"
 
 /** 常に接続に成功するデモ用ソケット(機体なしで操縦フローを試せる) */
 function createDemoSocket(): WebSocketLike {
+    let ready = 0
     const socket: WebSocketLike = {
-        readyState: 0,
+        get readyState() {
+            return ready
+        },
         send: () => undefined,
         close: () => undefined,
         onopen: null,
@@ -13,7 +16,7 @@ function createDemoSocket(): WebSocketLike {
         onerror: null,
     }
     setTimeout(() => {
-        socket.readyState = 1
+        ready = 1
         socket.onopen?.()
     }, 400)
     return socket
