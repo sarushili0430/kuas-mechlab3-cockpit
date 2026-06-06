@@ -1,7 +1,7 @@
-import { CockpitDashboardContainer } from "@/features/telemetry"
+import { CockpitScreenContainer } from "@/features/cockpit"
 
 function App() {
-    return <CockpitDashboardContainer />
+    return <CockpitScreenContainer />
 }
 
 export default App

@@ -1,0 +1,131 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AxesIndicator > 停止中のスナップショットと一致する 1`] = `
+<div>
+  <div
+    class="flex w-full flex-col gap-2"
+  >
+    <div
+      class="flex items-center gap-3"
+    >
+      <span
+        class="w-16 shrink-0 text-xs text-muted-foreground"
+      >
+        前後 vx
+      </span>
+      <div
+        class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+      >
+        <span
+          aria-hidden="true"
+          class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+        />
+        <span
+          aria-hidden="true"
+          class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+          data-testid="axis-fill-前後 vx"
+          style="width: 0%;"
+        />
+      </div>
+      <span
+        class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-muted-foreground"
+      >
+        +0.00
+      </span>
+    </div>
+    <div
+      class="flex items-center gap-3"
+    >
+      <span
+        class="w-16 shrink-0 text-xs text-muted-foreground"
+      >
+        旋回 wz
+      </span>
+      <div
+        class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+      >
+        <span
+          aria-hidden="true"
+          class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+        />
+        <span
+          aria-hidden="true"
+          class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+          data-testid="axis-fill-旋回 wz"
+          style="width: 0%;"
+        />
+      </div>
+      <span
+        class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-muted-foreground"
+      >
+        +0.00
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AxesIndicator > 前進+左旋回のスナップショットと一致する 1`] = `
+<div>
+  <div
+    class="flex w-full flex-col gap-2"
+  >
+    <div
+      class="flex items-center gap-3"
+    >
+      <span
+        class="w-16 shrink-0 text-xs text-muted-foreground"
+      >
+        前後 vx
+      </span>
+      <div
+        class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+      >
+        <span
+          aria-hidden="true"
+          class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+        />
+        <span
+          aria-hidden="true"
+          class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+          data-testid="axis-fill-前後 vx"
+          style="width: 50%;"
+        />
+      </div>
+      <span
+        class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-chart-1"
+      >
+        +1.00
+      </span>
+    </div>
+    <div
+      class="flex items-center gap-3"
+    >
+      <span
+        class="w-16 shrink-0 text-xs text-muted-foreground"
+      >
+        旋回 wz
+      </span>
+      <div
+        class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+      >
+        <span
+          aria-hidden="true"
+          class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+        />
+        <span
+          aria-hidden="true"
+          class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+          data-testid="axis-fill-旋回 wz"
+          style="width: 25%;"
+        />
+      </div>
+      <span
+        class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-chart-1"
+      >
+        +0.50
+      </span>
+    </div>
+  </div>
+</div>
+`;

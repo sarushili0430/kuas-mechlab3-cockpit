@@ -1,0 +1,75 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DriveKeypad > 全消灯のスナップショットと一致する 1`] = `
+<div>
+  <div
+    aria-label="操縦方向インジケータ"
+    class="inline-grid grid-cols-3 gap-1.5"
+    role="img"
+  >
+    <span />
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+      data-active="false"
+    >
+      W
+    </span>
+    <span />
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+      data-active="false"
+    >
+      A
+    </span>
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+      data-active="false"
+    >
+      S
+    </span>
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+      data-active="false"
+    >
+      D
+    </span>
+  </div>
+</div>
+`;
+
+exports[`DriveKeypad > 前進+右旋回点灯のスナップショットと一致する 1`] = `
+<div>
+  <div
+    aria-label="操縦方向インジケータ"
+    class="inline-grid grid-cols-3 gap-1.5"
+    role="img"
+  >
+    <span />
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-primary bg-primary text-primary-foreground shadow-glow-primary"
+      data-active="true"
+    >
+      W
+    </span>
+    <span />
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+      data-active="false"
+    >
+      A
+    </span>
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+      data-active="false"
+    >
+      S
+    </span>
+    <span
+      class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-primary bg-primary text-primary-foreground shadow-glow-primary"
+      data-active="true"
+    >
+      D
+    </span>
+  </div>
+</div>
+`;

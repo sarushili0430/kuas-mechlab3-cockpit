@@ -1,0 +1,607 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CockpitScreen > 操縦中のスナップショットと一致する 1`] = `
+<div>
+  <div
+    class="flex min-h-svh flex-col bg-background"
+  >
+    <header
+      class="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 md:px-6"
+    >
+      <div
+        class="flex items-center gap-3"
+      >
+        <span
+          class="flex size-9 items-center justify-center rounded-lg bg-primary/15"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-joystick size-5 text-primary"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2Z"
+            />
+            <path
+              d="M6 15v-2"
+            />
+            <path
+              d="M12 15V9"
+            />
+            <circle
+              cx="12"
+              cy="6"
+              r="3"
+            />
+          </svg>
+        </span>
+        <div>
+          <h1
+            class="font-heading text-lg font-semibold tracking-widest"
+          >
+            ML3 COCKPIT
+          </h1>
+          <p
+            class="text-xs text-muted-foreground"
+          >
+            KUAS MechLab3 遠隔操縦
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex flex-wrap items-center gap-3"
+      >
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium"
+          data-status="open"
+          role="status"
+        >
+          <span
+            aria-hidden="true"
+            class="size-2 rounded-full transition-colors duration-200 bg-success shadow-glow-success"
+          />
+          <span
+            class="text-success"
+          >
+            WS 
+            接続済
+          </span>
+        </span>
+        <form
+          class="flex items-center gap-2"
+        >
+          <label
+            class="flex items-center gap-2 font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 font-heading text-xs tracking-widest text-muted-foreground"
+            data-slot="label"
+            for="cockpit-host"
+          >
+            接続先ホスト
+          </label>
+          <div
+            class="flex flex-col gap-1"
+          >
+            <input
+              aria-invalid="false"
+              autocomplete="off"
+              class="min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 h-8 w-40 font-heading text-sm"
+              data-slot="input"
+              id="cockpit-host"
+              name="host"
+              spellcheck="false"
+              value="192.168.1.42"
+            />
+          </div>
+          <button
+            class="group/button inline-flex shrink-0 items-center justify-center border bg-clip-padding font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5"
+            data-size="sm"
+            data-slot="button"
+            data-variant="outline"
+            type="submit"
+          >
+            適用
+          </button>
+        </form>
+      </div>
+    </header>
+    <main
+      aria-label="カメラ映像"
+      class="grid flex-1 grid-cols-1 gap-4 p-4 md:grid-cols-2 md:px-6"
+    >
+      <figure
+        class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
+      >
+        <p
+          class="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground motion-safe:animate-pulse"
+        >
+          接続中…
+        </p>
+        <img
+          alt="前方カメラ映像"
+          class="relative size-full flex-1 object-contain"
+          src="http://pi:8080/stream?topic=/front"
+        />
+        <figcaption
+          class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
+        >
+          前方
+        </figcaption>
+      </figure>
+      <figure
+        class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
+      >
+        <p
+          class="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground motion-safe:animate-pulse"
+        >
+          接続中…
+        </p>
+        <img
+          alt="後方カメラ映像"
+          class="relative size-full flex-1 object-contain"
+          src="http://pi:8080/stream?topic=/rear"
+        />
+        <figcaption
+          class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
+        >
+          後方
+        </figcaption>
+      </figure>
+    </main>
+    <section
+      aria-label="操縦コンソール"
+      class="border-t border-border bg-card/50 px-4 py-4 md:px-6"
+    >
+      <div
+        class="flex flex-wrap items-center justify-between gap-x-10 gap-y-4"
+      >
+        <div
+          aria-label="操縦方向インジケータ"
+          class="inline-grid grid-cols-3 gap-1.5"
+          role="img"
+        >
+          <span />
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-primary bg-primary text-primary-foreground shadow-glow-primary"
+            data-active="true"
+          >
+            W
+          </span>
+          <span />
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            A
+          </span>
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            S
+          </span>
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            D
+          </span>
+        </div>
+        <div
+          class="min-w-56 flex-1"
+        >
+          <div
+            class="flex w-full flex-col gap-2"
+          >
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="w-16 shrink-0 text-xs text-muted-foreground"
+              >
+                前後 vx
+              </span>
+              <div
+                class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+                />
+                <span
+                  aria-hidden="true"
+                  class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+                  data-testid="axis-fill-前後 vx"
+                  style="width: 50%;"
+                />
+              </div>
+              <span
+                class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-chart-1"
+              >
+                +1.00
+              </span>
+            </div>
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="w-16 shrink-0 text-xs text-muted-foreground"
+              >
+                旋回 wz
+              </span>
+              <div
+                class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+                />
+                <span
+                  aria-hidden="true"
+                  class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+                  data-testid="axis-fill-旋回 wz"
+                  style="width: 0%;"
+                />
+              </div>
+              <span
+                class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-muted-foreground"
+              >
+                +0.00
+              </span>
+            </div>
+          </div>
+        </div>
+        <button
+          class="group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 min-w-36 bg-destructive font-semibold text-destructive-foreground hover:bg-destructive/90"
+          data-size="lg"
+          data-slot="button"
+          data-variant="default"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-octagon-x"
+            data-icon="inline-start"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m15 9-6 6"
+            />
+            <path
+              d="M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z"
+            />
+            <path
+              d="m9 9 6 6"
+            />
+          </svg>
+          緊急停止
+        </button>
+      </div>
+      <p
+        class="mt-3 text-xs text-muted-foreground"
+      >
+        この画面にフォーカスして W / A / S / D で操縦できます (キーを離すと停止・切断時も機体は自動停止します)
+      </p>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`CockpitScreen > 未接続のスナップショットと一致する 1`] = `
+<div>
+  <div
+    class="flex min-h-svh flex-col bg-background"
+  >
+    <header
+      class="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 md:px-6"
+    >
+      <div
+        class="flex items-center gap-3"
+      >
+        <span
+          class="flex size-9 items-center justify-center rounded-lg bg-primary/15"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-joystick size-5 text-primary"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2Z"
+            />
+            <path
+              d="M6 15v-2"
+            />
+            <path
+              d="M12 15V9"
+            />
+            <circle
+              cx="12"
+              cy="6"
+              r="3"
+            />
+          </svg>
+        </span>
+        <div>
+          <h1
+            class="font-heading text-lg font-semibold tracking-widest"
+          >
+            ML3 COCKPIT
+          </h1>
+          <p
+            class="text-xs text-muted-foreground"
+          >
+            KUAS MechLab3 遠隔操縦
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex flex-wrap items-center gap-3"
+      >
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium"
+          data-status="idle"
+          role="status"
+        >
+          <span
+            aria-hidden="true"
+            class="size-2 rounded-full transition-colors duration-200 bg-muted-foreground"
+          />
+          <span
+            class="text-muted-foreground"
+          >
+            WS 
+            未接続
+          </span>
+        </span>
+        <form
+          class="flex items-center gap-2"
+        >
+          <label
+            class="flex items-center gap-2 font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 font-heading text-xs tracking-widest text-muted-foreground"
+            data-slot="label"
+            for="cockpit-host"
+          >
+            接続先ホスト
+          </label>
+          <div
+            class="flex flex-col gap-1"
+          >
+            <input
+              aria-invalid="false"
+              autocomplete="off"
+              class="min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 h-8 w-40 font-heading text-sm"
+              data-slot="input"
+              id="cockpit-host"
+              name="host"
+              spellcheck="false"
+              value="192.168.1.42"
+            />
+          </div>
+          <button
+            class="group/button inline-flex shrink-0 items-center justify-center border bg-clip-padding font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5"
+            data-size="sm"
+            data-slot="button"
+            data-variant="outline"
+            type="submit"
+          >
+            適用
+          </button>
+        </form>
+      </div>
+    </header>
+    <main
+      aria-label="カメラ映像"
+      class="grid flex-1 grid-cols-1 gap-4 p-4 md:grid-cols-2 md:px-6"
+    >
+      <figure
+        class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
+      >
+        <p
+          class="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground motion-safe:animate-pulse"
+        >
+          接続中…
+        </p>
+        <img
+          alt="前方カメラ映像"
+          class="relative size-full flex-1 object-contain"
+          src="http://pi:8080/stream?topic=/front"
+        />
+        <figcaption
+          class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
+        >
+          前方
+        </figcaption>
+      </figure>
+      <figure
+        class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
+      >
+        <p
+          class="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground motion-safe:animate-pulse"
+        >
+          接続中…
+        </p>
+        <img
+          alt="後方カメラ映像"
+          class="relative size-full flex-1 object-contain"
+          src="http://pi:8080/stream?topic=/rear"
+        />
+        <figcaption
+          class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
+        >
+          後方
+        </figcaption>
+      </figure>
+    </main>
+    <section
+      aria-label="操縦コンソール"
+      class="border-t border-border bg-card/50 px-4 py-4 md:px-6"
+    >
+      <div
+        class="flex flex-wrap items-center justify-between gap-x-10 gap-y-4"
+      >
+        <div
+          aria-label="操縦方向インジケータ"
+          class="inline-grid grid-cols-3 gap-1.5"
+          role="img"
+        >
+          <span />
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            W
+          </span>
+          <span />
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            A
+          </span>
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            S
+          </span>
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            D
+          </span>
+        </div>
+        <div
+          class="min-w-56 flex-1"
+        >
+          <div
+            class="flex w-full flex-col gap-2"
+          >
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="w-16 shrink-0 text-xs text-muted-foreground"
+              >
+                前後 vx
+              </span>
+              <div
+                class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+                />
+                <span
+                  aria-hidden="true"
+                  class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+                  data-testid="axis-fill-前後 vx"
+                  style="width: 0%;"
+                />
+              </div>
+              <span
+                class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-muted-foreground"
+              >
+                +0.00
+              </span>
+            </div>
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="w-16 shrink-0 text-xs text-muted-foreground"
+              >
+                旋回 wz
+              </span>
+              <div
+                class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+                />
+                <span
+                  aria-hidden="true"
+                  class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+                  data-testid="axis-fill-旋回 wz"
+                  style="width: 0%;"
+                />
+              </div>
+              <span
+                class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-muted-foreground"
+              >
+                +0.00
+              </span>
+            </div>
+          </div>
+        </div>
+        <button
+          class="group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 min-w-36 bg-cta font-semibold text-cta-foreground hover:bg-cta/90"
+          data-size="lg"
+          data-slot="button"
+          data-variant="default"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-plug-zap"
+            data-icon="inline-start"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z"
+            />
+            <path
+              d="m2 22 3-3"
+            />
+            <path
+              d="M7.5 13.5 10 11"
+            />
+            <path
+              d="M10.5 16.5 13 14"
+            />
+            <path
+              d="m18 3-4 4h6l-4 4"
+            />
+          </svg>
+          接続
+        </button>
+      </div>
+      <p
+        class="mt-3 text-xs text-muted-foreground"
+      >
+        この画面にフォーカスして W / A / S / D で操縦できます (キーを離すと停止・切断時も機体は自動停止します)
+      </p>
+    </section>
+  </div>
+</div>
+`;

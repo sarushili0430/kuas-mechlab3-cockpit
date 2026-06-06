@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ConnectionBadge > 再接続中のスナップショットと一致する 1`] = `
+<div>
+  <span
+    class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium"
+    data-status="reconnecting"
+    role="status"
+  >
+    <span
+      aria-hidden="true"
+      class="size-2 rounded-full transition-colors duration-200 animate-pulse bg-destructive"
+    />
+    <span
+      class="text-destructive"
+    >
+      WS 
+      再接続中…
+    </span>
+  </span>
+</div>
+`;
+
+exports[`ConnectionBadge > 接続済のスナップショットと一致する 1`] = `
+<div>
+  <span
+    class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium"
+    data-status="open"
+    role="status"
+  >
+    <span
+      aria-hidden="true"
+      class="size-2 rounded-full transition-colors duration-200 bg-success shadow-glow-success"
+    />
+    <span
+      class="text-success"
+    >
+      WS 
+      接続済
+    </span>
+  </span>
+</div>
+`;
