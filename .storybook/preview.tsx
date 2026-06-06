@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react-vite"
 import "../src/index.css"
 
-// Cockpit はダークモードファースト(design-system/kuas-mechlab3-cockpit/MASTER.md)
+// Cockpit はダーク専用(design-system/kuas-mechlab3-cockpit/MASTER.md — Theme Policy)
 document.documentElement.classList.add("dark")
 
 const preview: Preview = {
@@ -16,7 +16,6 @@ const preview: Preview = {
         backgrounds: {
             options: {
                 dark: { name: "Dark", value: "oklch(0.129 0.042 264.695)" },
-                light: { name: "Light", value: "oklch(0.984 0.003 247.858)" },
             },
         },
 
