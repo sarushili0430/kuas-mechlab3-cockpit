@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { useTranslation } from "@/i18n"
 import { formatAxisValue } from "../logic/format"
 import type { DriveAxes } from "../types"
 
@@ -51,10 +52,12 @@ function AxisRow({ label, value }: AxisRowProps) {
  * 正方向 = バー右側(vx: 前進 / wz: 左旋回, REP-103)。
  */
 export function AxesIndicator({ axes }: AxesIndicatorProps) {
+    const { t } = useTranslation()
+
     return (
         <div className="flex w-full flex-col gap-2">
-            <AxisRow label="前後 vx" value={axes.vx} />
-            <AxisRow label="旋回 wz" value={axes.wz} />
+            <AxisRow label={t("axes.vx")} value={axes.vx} />
+            <AxisRow label={t("axes.wz")} value={axes.wz} />
         </div>
     )
 }

@@ -2,6 +2,7 @@ import { useState, type ComponentProps } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useTranslation } from "@/i18n"
 import { sanitizeHost } from "../logic/hostConfig"
 
 interface HostSettingsFormProps {
@@ -14,6 +15,7 @@ interface HostSettingsFormProps {
  * 1フィールドの単純なフォームなので draft 状態はコンポーネント内で持つ。
  */
 export function HostSettingsForm({ host, onHostChange }: HostSettingsFormProps) {
+    const { t } = useTranslation()
     const [draft, setDraft] = useState(host)
     const [showError, setShowError] = useState(false)
 
@@ -36,7 +38,7 @@ export function HostSettingsForm({ host, onHostChange }: HostSettingsFormProps) 
                 htmlFor="cockpit-host"
                 className="font-heading text-xs tracking-widest text-muted-foreground"
             >
-                接続先ホスト
+                {t("host.label")}
             </Label>
             <div className="flex flex-col gap-1">
                 <Input
@@ -54,12 +56,12 @@ export function HostSettingsForm({ host, onHostChange }: HostSettingsFormProps) 
                 />
                 {showError && (
                     <p id="cockpit-host-error" className="text-xs text-destructive">
-                        ホスト名が無効です
+                        {t("host.invalid")}
                     </p>
                 )}
             </div>
             <Button type="submit" variant="outline" size="sm">
-                適用
+                {t("host.apply")}
             </Button>
         </form>
     )

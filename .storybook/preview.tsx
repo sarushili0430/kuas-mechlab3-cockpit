@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react-vite"
+import { LanguageProvider } from "../src/i18n"
 import "../src/index.css"
 
 // Cockpit はダーク専用(design-system/kuas-mechlab3-cockpit/MASTER.md — Theme Policy)
@@ -30,6 +31,15 @@ const preview: Preview = {
     initialGlobals: {
         backgrounds: { value: "dark" },
     },
+
+    // 言語切替を Storybook 上でも操作できるよう Provider を全ストーリーに供給する
+    decorators: [
+        (Story) => (
+            <LanguageProvider>
+                <Story />
+            </LanguageProvider>
+        ),
+    ],
 }
 
 export default preview
