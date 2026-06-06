@@ -1,0 +1,75 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CameraFeed > ライブ中のスナップショットと一致する 1`] = `
+<div>
+  <figure
+    class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
+  >
+    <img
+      alt="前方カメラ映像"
+      class="relative size-full flex-1 object-contain"
+      src="http://pi:8080/stream?topic=/front_camera/image_raw/compressed"
+    />
+    <figcaption
+      class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
+    >
+      前方
+    </figcaption>
+    <span
+      class="absolute top-2 left-2 inline-flex items-center gap-1.5 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-success backdrop-blur-sm"
+    >
+      <span
+        aria-hidden="true"
+        class="size-1.5 rounded-full bg-success shadow-glow-success motion-safe:animate-pulse"
+      />
+      LIVE
+    </span>
+  </figure>
+</div>
+`;
+
+exports[`CameraFeed > 信号なしのスナップショットと一致する 1`] = `
+<div>
+  <figure
+    class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
+  >
+    <div
+      class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted-foreground"
+    >
+      <svg
+        aria-hidden="true"
+        class="lucide lucide-video-off size-6"
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10.66 6H14a2 2 0 0 1 2 2v2.5l5.248-3.062A.5.5 0 0 1 22 7.87v8.196"
+        />
+        <path
+          d="M16 16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2"
+        />
+        <path
+          d="m2 2 20 20"
+        />
+      </svg>
+      <p
+        class="font-heading text-sm tracking-widest"
+      >
+        NO SIGNAL
+      </p>
+    </div>
+    <figcaption
+      class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
+    >
+      前方
+    </figcaption>
+  </figure>
+</div>
+`;
