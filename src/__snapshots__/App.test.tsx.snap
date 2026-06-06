@@ -3,697 +3,305 @@
 exports[`App > スナップショットと一致する 1`] = `
 <div>
   <div
-    class="min-h-svh bg-background p-4 md:p-8"
+    class="flex min-h-svh flex-col bg-background"
   >
-    <div
-      class="mx-auto flex max-w-6xl flex-col gap-6"
+    <header
+      class="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-3 md:px-6"
     >
-      <header
-        class="flex flex-wrap items-center justify-between gap-4"
+      <div
+        class="flex items-center gap-3"
       >
-        <div
-          class="flex items-center gap-3"
+        <span
+          class="flex size-9 items-center justify-center rounded-lg bg-primary/15"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-joystick size-5 text-primary"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 17a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2Z"
+            />
+            <path
+              d="M6 15v-2"
+            />
+            <path
+              d="M12 15V9"
+            />
+            <circle
+              cx="12"
+              cy="6"
+              r="3"
+            />
+          </svg>
+        </span>
+        <div>
+          <h1
+            class="font-heading text-lg font-semibold tracking-widest"
+          >
+            ML3 COCKPIT
+          </h1>
+          <p
+            class="text-xs text-muted-foreground"
+          >
+            KUAS MechLab3 遠隔操縦
+          </p>
+        </div>
+      </div>
+      <div
+        class="flex flex-wrap items-center gap-3"
+      >
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium"
+          data-status="idle"
+          role="status"
         >
           <span
-            class="flex size-10 items-center justify-center rounded-lg bg-primary/15"
+            aria-hidden="true"
+            class="size-2 rounded-full transition-colors duration-200 bg-muted-foreground"
+          />
+          <span
+            class="text-muted-foreground"
           >
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-gauge size-5 text-primary"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m12 14 4-4"
-              />
-              <path
-                d="M3.34 19a10 10 0 1 1 17.32 0"
-              />
-            </svg>
+            WS 
+            未接続
           </span>
-          <div>
-            <h1
-              class="font-heading text-xl font-semibold tracking-tight"
-            >
-              KUAS MechLab3 Cockpit
-            </h1>
-            <p
-              class="flex items-center gap-2 text-sm text-muted-foreground"
-            >
-              モーター特性計測実験
-              <span
-                class="group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center overflow-hidden rounded-4xl border px-2 py-0.5 text-xs whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3! [a]:hover:bg-primary/80 gap-1 font-medium border-transparent bg-chart-3/15 text-chart-3 [a&]:hover:bg-chart-3/25 transition-colors"
-                data-slot="badge"
-                data-variant="default"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-circle-check size-3"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                  />
-                  <path
-                    d="m9 12 2 2 4-4"
-                  />
-                </svg>
-                正常
-              </span>
-            </p>
-          </div>
-        </div>
-        <div
-          class="flex items-center gap-3"
+        </span>
+        <form
+          class="flex items-center gap-2"
         >
-          <p
-            class="flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-1.5"
+          <label
+            class="flex items-center gap-2 font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 font-heading text-xs tracking-widest text-muted-foreground"
+            data-slot="label"
+            for="cockpit-host"
           >
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-timer size-4 text-muted-foreground"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="10"
-                x2="14"
-                y1="2"
-                y2="2"
-              />
-              <line
-                x1="12"
-                x2="15"
-                y1="14"
-                y2="11"
-              />
-              <circle
-                cx="12"
-                cy="14"
-                r="8"
-              />
-            </svg>
-            <span
-              class="font-mono text-sm font-medium tabular-nums"
-            >
-              00:00
-            </span>
-          </p>
-          <button
-            class="group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 bg-primary text-primary-foreground hover:bg-primary/80 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
-            data-size="default"
-            data-slot="button"
-            data-variant="default"
+            接続先ホスト
+          </label>
+          <div
+            class="flex flex-col gap-1"
           >
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-play"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"
-              />
-            </svg>
-            計測開始
-          </button>
+            <input
+              aria-invalid="false"
+              autocomplete="off"
+              class="min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 h-8 w-40 font-heading text-sm"
+              data-slot="input"
+              id="cockpit-host"
+              name="host"
+              spellcheck="false"
+              value="192.168.1.42"
+            />
+          </div>
           <button
-            class="group/button inline-flex shrink-0 items-center justify-center rounded-lg border bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
-            data-size="default"
+            class="group/button inline-flex shrink-0 items-center justify-center border bg-clip-padding font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5"
+            data-size="sm"
             data-slot="button"
             data-variant="outline"
+            type="submit"
           >
-            <svg
-              aria-hidden="true"
-              class="lucide lucide-rotate-ccw"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
-              />
-              <path
-                d="M3 3v5h5"
-              />
-            </svg>
-            リセット
+            適用
           </button>
-        </div>
-      </header>
-      <section
-        aria-label="計測値"
-        class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"
+        </form>
+      </div>
+    </header>
+    <main
+      aria-label="カメラ映像"
+      class="grid flex-1 grid-cols-1 gap-4 p-4 md:grid-cols-2 md:px-6"
+    >
+      <figure
+        class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
       >
-        <div
-          class="group/card flex flex-col overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl gap-3 transition-colors duration-200"
-          data-size="default"
-          data-slot="card"
-          data-status="normal"
+        <p
+          class="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground motion-safe:animate-pulse"
         >
-          <div
-            class="group/card-header @container/card-header auto-rows-min gap-1 rounded-t-xl px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--card-spacing) flex flex-row items-center justify-between space-y-0"
-            data-slot="card-header"
-          >
-            <div
-              class="font-heading group-data-[size=sm]/card:text-sm text-sm font-medium text-muted-foreground"
-              data-slot="card-title"
-            >
-              回転数
-            </div>
-            <span
-              class="group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center overflow-hidden rounded-4xl border px-2 py-0.5 text-xs whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3! [a]:hover:bg-primary/80 gap-1 font-medium border-transparent bg-chart-3/15 text-chart-3 [a&]:hover:bg-chart-3/25 transition-colors"
-              data-slot="badge"
-              data-variant="default"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-circle-check size-3"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                />
-                <path
-                  d="m9 12 2 2 4-4"
-                />
-              </svg>
-              正常
-            </span>
-          </div>
-          <div
-            class="px-(--card-spacing)"
-            data-slot="card-content"
-          >
-            <p
-              class="flex items-baseline gap-1.5"
-            >
-              <span
-                class="font-mono text-3xl font-semibold tabular-nums tracking-tight"
-              >
-                --
-              </span>
-              <span
-                class="text-sm text-muted-foreground"
-              >
-                rpm
-              </span>
-            </p>
-            <dl
-              class="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-3 font-mono text-xs tabular-nums"
-            >
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最小
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  平均
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最大
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-        <div
-          class="group/card flex flex-col overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl gap-3 transition-colors duration-200"
-          data-size="default"
-          data-slot="card"
-          data-status="normal"
+          接続中…
+        </p>
+        <img
+          alt="前方カメラ映像"
+          class="relative size-full flex-1 object-contain"
+          src="http://192.168.1.42:8080/stream?topic=/front_camera/image_raw/compressed"
+        />
+        <figcaption
+          class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
         >
-          <div
-            class="group/card-header @container/card-header auto-rows-min gap-1 rounded-t-xl px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--card-spacing) flex flex-row items-center justify-between space-y-0"
-            data-slot="card-header"
-          >
-            <div
-              class="font-heading group-data-[size=sm]/card:text-sm text-sm font-medium text-muted-foreground"
-              data-slot="card-title"
-            >
-              トルク
-            </div>
-            <span
-              class="group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center overflow-hidden rounded-4xl border px-2 py-0.5 text-xs whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3! [a]:hover:bg-primary/80 gap-1 font-medium border-transparent bg-chart-3/15 text-chart-3 [a&]:hover:bg-chart-3/25 transition-colors"
-              data-slot="badge"
-              data-variant="default"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-circle-check size-3"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                />
-                <path
-                  d="m9 12 2 2 4-4"
-                />
-              </svg>
-              正常
-            </span>
-          </div>
-          <div
-            class="px-(--card-spacing)"
-            data-slot="card-content"
-          >
-            <p
-              class="flex items-baseline gap-1.5"
-            >
-              <span
-                class="font-mono text-3xl font-semibold tabular-nums tracking-tight"
-              >
-                --
-              </span>
-              <span
-                class="text-sm text-muted-foreground"
-              >
-                N·m
-              </span>
-            </p>
-            <dl
-              class="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-3 font-mono text-xs tabular-nums"
-            >
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最小
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  平均
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最大
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-        <div
-          class="group/card flex flex-col overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl gap-3 transition-colors duration-200"
-          data-size="default"
-          data-slot="card"
-          data-status="normal"
+          前方
+        </figcaption>
+      </figure>
+      <figure
+        class="relative flex size-full min-h-40 flex-col overflow-hidden rounded-xl border border-border bg-black"
+      >
+        <p
+          class="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground motion-safe:animate-pulse"
         >
-          <div
-            class="group/card-header @container/card-header auto-rows-min gap-1 rounded-t-xl px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--card-spacing) flex flex-row items-center justify-between space-y-0"
-            data-slot="card-header"
-          >
-            <div
-              class="font-heading group-data-[size=sm]/card:text-sm text-sm font-medium text-muted-foreground"
-              data-slot="card-title"
-            >
-              モーター温度
-            </div>
-            <span
-              class="group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center overflow-hidden rounded-4xl border px-2 py-0.5 text-xs whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3! [a]:hover:bg-primary/80 gap-1 font-medium border-transparent bg-chart-3/15 text-chart-3 [a&]:hover:bg-chart-3/25 transition-colors"
-              data-slot="badge"
-              data-variant="default"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-circle-check size-3"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                />
-                <path
-                  d="m9 12 2 2 4-4"
-                />
-              </svg>
-              正常
-            </span>
-          </div>
-          <div
-            class="px-(--card-spacing)"
-            data-slot="card-content"
-          >
-            <p
-              class="flex items-baseline gap-1.5"
-            >
-              <span
-                class="font-mono text-3xl font-semibold tabular-nums tracking-tight"
-              >
-                --
-              </span>
-              <span
-                class="text-sm text-muted-foreground"
-              >
-                °C
-              </span>
-            </p>
-            <dl
-              class="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-3 font-mono text-xs tabular-nums"
-            >
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最小
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  平均
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最大
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-        <div
-          class="group/card flex flex-col overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl gap-3 transition-colors duration-200"
-          data-size="default"
-          data-slot="card"
-          data-status="normal"
+          接続中…
+        </p>
+        <img
+          alt="後方カメラ映像"
+          class="relative size-full flex-1 object-contain"
+          src="http://192.168.1.42:8080/stream?topic=/rear_camera/image_raw/compressed"
+        />
+        <figcaption
+          class="absolute top-2 right-2 rounded-md bg-background/70 px-2 py-0.5 font-heading text-xs tracking-widest text-foreground backdrop-blur-sm"
         >
-          <div
-            class="group/card-header @container/card-header auto-rows-min gap-1 rounded-t-xl px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-(--card-spacing) flex flex-row items-center justify-between space-y-0"
-            data-slot="card-header"
-          >
-            <div
-              class="font-heading group-data-[size=sm]/card:text-sm text-sm font-medium text-muted-foreground"
-              data-slot="card-title"
-            >
-              電流
-            </div>
-            <span
-              class="group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center overflow-hidden rounded-4xl border px-2 py-0.5 text-xs whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3! [a]:hover:bg-primary/80 gap-1 font-medium border-transparent bg-chart-3/15 text-chart-3 [a&]:hover:bg-chart-3/25 transition-colors"
-              data-slot="badge"
-              data-variant="default"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-circle-check size-3"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                />
-                <path
-                  d="m9 12 2 2 4-4"
-                />
-              </svg>
-              正常
-            </span>
-          </div>
-          <div
-            class="px-(--card-spacing)"
-            data-slot="card-content"
-          >
-            <p
-              class="flex items-baseline gap-1.5"
-            >
-              <span
-                class="font-mono text-3xl font-semibold tabular-nums tracking-tight"
-              >
-                --
-              </span>
-              <span
-                class="text-sm text-muted-foreground"
-              >
-                A
-              </span>
-            </p>
-            <dl
-              class="mt-3 grid grid-cols-3 gap-2 border-t border-border pt-3 font-mono text-xs tabular-nums"
-            >
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最小
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  平均
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-              <div>
-                <dt
-                  class="text-muted-foreground"
-                >
-                  最大
-                </dt>
-                <dd>
-                  --
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-      </section>
+          後方
+        </figcaption>
+      </figure>
+    </main>
+    <section
+      aria-label="操縦コンソール"
+      class="border-t border-border bg-card/50 px-4 py-4 md:px-6"
+    >
       <div
-        class="shrink-0 bg-border data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch"
-        data-orientation="horizontal"
-        data-slot="separator"
-        role="none"
-      />
-      <section
-        aria-label="トレンド"
-        class="rounded-xl border border-border bg-card p-4 md:p-6"
+        class="flex flex-wrap items-center justify-between gap-x-10 gap-y-4"
       >
         <div
-          class="group/tabs flex gap-2 data-horizontal:flex-col"
-          data-orientation="horizontal"
-          data-slot="tabs"
-          dir="ltr"
+          aria-label="操縦方向インジケータ"
+          class="inline-grid grid-cols-3 gap-1.5"
+          role="img"
         >
-          <div
-            aria-orientation="horizontal"
-            class="group/tabs-list inline-flex w-fit items-center justify-center rounded-lg p-[3px] text-muted-foreground group-data-horizontal/tabs:h-8 group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col data-[variant=line]:rounded-none bg-muted mb-4"
-            data-orientation="horizontal"
-            data-slot="tabs-list"
-            data-variant="default"
-            role="tablist"
-            style="outline: none;"
-            tabindex="0"
+          <span />
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
           >
-            <button
-              aria-controls="radix-_r_5_-content-rpm"
-              aria-selected="true"
-              class="relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-slot="tabs-trigger"
-              data-state="active"
-              id="radix-_r_5_-trigger-rpm"
-              role="tab"
-              tabindex="-1"
-              type="button"
-            >
-              回転数
-            </button>
-            <button
-              aria-controls="radix-_r_5_-content-torque"
-              aria-selected="false"
-              class="relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-slot="tabs-trigger"
-              data-state="inactive"
-              id="radix-_r_5_-trigger-torque"
-              role="tab"
-              tabindex="-1"
-              type="button"
-            >
-              トルク
-            </button>
-            <button
-              aria-controls="radix-_r_5_-content-temperature"
-              aria-selected="false"
-              class="relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-slot="tabs-trigger"
-              data-state="inactive"
-              id="radix-_r_5_-trigger-temperature"
-              role="tab"
-              tabindex="-1"
-              type="button"
-            >
-              モーター温度
-            </button>
-            <button
-              aria-controls="radix-_r_5_-content-current"
-              aria-selected="false"
-              class="relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100"
-              data-orientation="horizontal"
-              data-radix-collection-item=""
-              data-slot="tabs-trigger"
-              data-state="inactive"
-              id="radix-_r_5_-trigger-current"
-              role="tab"
-              tabindex="-1"
-              type="button"
-            >
-              電流
-            </button>
-          </div>
+            W
+          </span>
+          <span />
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            A
+          </span>
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            S
+          </span>
+          <span
+            class="flex size-12 items-center justify-center rounded-lg border font-heading text-base font-semibold transition-all duration-150 border-border bg-card text-muted-foreground"
+            data-active="false"
+          >
+            D
+          </span>
         </div>
         <div
-          class="flex h-full flex-col gap-2"
+          class="min-w-56 flex-1"
         >
-          <h3
-            class="text-sm font-medium text-muted-foreground"
-          >
-            回転数
-            トレンド (
-            rpm
-            )
-          </h3>
           <div
-            class="flex min-h-48 flex-1 items-center justify-center rounded-md border border-dashed border-border"
+            class="flex w-full flex-col gap-2"
           >
-            <p
-              class="text-sm text-muted-foreground"
+            <div
+              class="flex items-center gap-3"
             >
-              計測を開始するとトレンドが表示されます
-            </p>
+              <span
+                class="w-16 shrink-0 text-xs text-muted-foreground"
+              >
+                前後 vx
+              </span>
+              <div
+                class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+                />
+                <span
+                  aria-hidden="true"
+                  class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+                  data-testid="axis-fill-前後 vx"
+                  style="width: 0%;"
+                />
+              </div>
+              <span
+                class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-muted-foreground"
+              >
+                +0.00
+              </span>
+            </div>
+            <div
+              class="flex items-center gap-3"
+            >
+              <span
+                class="w-16 shrink-0 text-xs text-muted-foreground"
+              >
+                旋回 wz
+              </span>
+              <div
+                class="relative h-1.5 min-w-24 flex-1 overflow-hidden rounded-full bg-muted"
+              >
+                <span
+                  aria-hidden="true"
+                  class="absolute left-1/2 h-full w-px -translate-x-1/2 bg-border"
+                />
+                <span
+                  aria-hidden="true"
+                  class="absolute h-full bg-chart-1 transition-all duration-150 left-1/2"
+                  data-testid="axis-fill-旋回 wz"
+                  style="width: 0%;"
+                />
+              </div>
+              <span
+                class="w-14 shrink-0 text-right font-heading text-sm tabular-nums text-muted-foreground"
+              >
+                +0.00
+              </span>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+        <button
+          class="group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 min-w-36 bg-cta font-semibold text-cta-foreground hover:bg-cta/90"
+          data-size="lg"
+          data-slot="button"
+          data-variant="default"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-plug-zap"
+            data-icon="inline-start"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.3 20.3a2.4 2.4 0 0 0 3.4 0L12 18l-6-6-2.3 2.3a2.4 2.4 0 0 0 0 3.4Z"
+            />
+            <path
+              d="m2 22 3-3"
+            />
+            <path
+              d="M7.5 13.5 10 11"
+            />
+            <path
+              d="M10.5 16.5 13 14"
+            />
+            <path
+              d="m18 3-4 4h6l-4 4"
+            />
+          </svg>
+          接続
+        </button>
+      </div>
+      <p
+        class="mt-3 text-xs text-muted-foreground"
+      >
+        この画面にフォーカスして W / A / S / D で操縦できます (キーを離すと停止・切断時も機体は自動停止します)
+      </p>
+    </section>
   </div>
 </div>
 `;

@@ -1,7 +1,12 @@
 export { buildTeleopUrl } from "./constants"
 export { useTeleop } from "./hooks/useTeleop"
 export { createKeyboardInput, type KeyboardInput } from "./lib/keyboardInput"
-export { createTeleopClient, type TeleopClient } from "./lib/teleopClient"
+export {
+    createTeleopClient,
+    type TeleopClient,
+    type TeleopClientOptions,
+    type WebSocketLike,
+} from "./lib/teleopClient"
 export { activeDirectionsFromAxes, axesFromKeys, STOP_AXES } from "./logic/axes"
 export { AxesIndicator } from "./components/AxesIndicator"
 export { ConnectionBadge } from "./components/ConnectionBadge"

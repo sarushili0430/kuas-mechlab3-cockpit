@@ -2,9 +2,9 @@ import { render, screen } from "@testing-library/react"
 import App from "./App"
 
 describe("App", () => {
-    it("タイトルを表示する", () => {
+    it("ML3 コックピット画面を表示する", () => {
         render(<App />)
-        expect(screen.getByRole("heading", { name: "KUAS MechLab3 Cockpit" })).toBeInTheDocument()
+        expect(screen.getByRole("heading", { name: "ML3 COCKPIT" })).toBeInTheDocument()
     })
 
     it("スナップショットと一致する", () => {
