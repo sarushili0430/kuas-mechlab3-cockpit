@@ -2,7 +2,7 @@ import { useState, type ComponentProps } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { sanitizeHost } from "../logic/hostConfig"
+import { sanitizeHost } from "./logic/hostConfig"
 
 interface HostSettingsFormProps {
     readonly host: string

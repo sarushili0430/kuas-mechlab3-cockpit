@@ -55,27 +55,33 @@ pnpm build              # 型チェック + 本番ビルド
 ```
 
 機体なしで操縦フローを確認するには Storybook の
-`Cockpit/CockpitScreenContainer → Demo`(常に接続に成功するデモソケット)を使う。
+`Cockpit/CockpitPage → Demo`(常に接続に成功するデモソケット)を使う。
 
-## ディレクトリ構造(feature-based)
+## ディレクトリ構造(features + pages)
+
+`features/` は画面を持たない再利用可能なドメイン部品、`pages/` は実際に表示する画面
+(Container + Presentational を同居)。「どれが core 画面か」は `pages/` を見れば分かる。
 
 ```
 src/
 ├── components/ui/        # shadcn/ui(ベンダーコード。lint 一部緩和)
 ├── lib/                  # 共有ユーティリティ
-├── features/
+├── features/             # ドメイン部品(画面を持たない・ルーティング非依存)
 │   ├── teleop/           # 操縦チャネル(WebSocket)
 │   │   ├── logic/        # キー集合→正規化軸の純粋関数(REP-103)
 │   │   ├── lib/          # teleopClient(20Hz送信・自動再接続)/ keyboardInput
 │   │   ├── hooks/        # useTeleop(useSyncExternalStore ベース)
 │   │   └── components/   # ConnectionBadge / DriveKeypad / AxesIndicator
-│   ├── camera/           # 映像チャネル(MJPEG)
-│   │   ├── logic/        # ストリーム URL 組み立て
-│   │   └── components/   # CameraFeed(LIVE / NO SIGNAL / 再試行)
-│   └── cockpit/          # 画面の組み立て
-│       ├── logic/        # 接続先ホストの正規化・初期値解決
-│       ├── lib/          # ホスト設定の localStorage 永続化
-│       └── components/   # CockpitScreen(Presentational)+ Container
+│   └── camera/           # 映像チャネル(MJPEG)
+│       ├── logic/        # ストリーム URL 組み立て
+│       └── components/   # CameraFeed(LIVE / NO SIGNAL / 再試行)
+├── pages/                # 表示する画面(Container + Presentational を同居)
+│   └── cockpit/          # 操縦コックピット画面
+│       ├── logic/             # 接続先ホストの正規化・初期値解決
+│       ├── lib/               # ホスト設定の localStorage 永続化
+│       ├── CockpitScreen.tsx  # Presentational(core 画面)
+│       ├── CockpitPage.tsx    # Container(エントリ)
+│       └── HostSettingsForm.tsx
 ├── test/                 # テストセットアップ
 └── App.tsx
 ```
@@ -85,6 +91,7 @@ src/
 - **TDD(t-wada 式)**: Red → Green → Refactor。テストを先に書き、失敗を確認してから実装する
 - **ビジネスロジックは純粋関数**: `features/*/logic/` に置き、単体テストでカバレッジを担保する
 - **Container / Presentational パターン**:
+    - 画面(Container + Presentational)は `pages/<screen>/` に同居し、`*Page`(Container)/ `*Screen`(Presentational)で役割を示す。再利用可能なドメイン部品は `features/` に置く
     - Presentational は props のみに依存し、スナップショットテスト可能にする
     - 複雑なステートを扱うフックは Container へ**外部から注入**する(`useTeleopSnapshot` prop)
     - ダイアログ開閉や1フィールドフォーム等の単純な UI 状態のみコンポーネント内 `useState` 可

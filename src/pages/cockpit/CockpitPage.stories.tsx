@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
 import { createTeleopClient, type WebSocketLike } from "@/features/teleop"
-import { CockpitScreenContainer } from "./CockpitScreenContainer"
+import { CockpitPage } from "./CockpitPage"
 
 /** 常に接続に成功するデモ用ソケット(機体なしで操縦フローを試せる) */
 function createDemoSocket(): WebSocketLike {
@@ -43,12 +43,12 @@ function createMemoryStorage(): Storage {
 }
 
 const meta = {
-    title: "Cockpit/CockpitScreenContainer",
-    component: CockpitScreenContainer,
+    title: "Cockpit/CockpitPage",
+    component: CockpitPage,
     parameters: {
         layout: "fullscreen",
     },
-} satisfies Meta<typeof CockpitScreenContainer>
+} satisfies Meta<typeof CockpitPage>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -60,7 +60,7 @@ type Story = StoryObj<typeof meta>
  */
 export const Demo: Story = {
     render: () => (
-        <CockpitScreenContainer
+        <CockpitPage
             client={createTeleopClient({ createSocket: createDemoSocket })}
             storage={createMemoryStorage()}
         />
