@@ -9,8 +9,8 @@ import {
     type KeyboardInput,
     type TeleopClient,
 } from "@/features/teleop"
-import { loadSavedHost, saveHost } from "../lib/hostStorage"
-import { resolveInitialHost } from "../logic/hostConfig"
+import { loadSavedHost, saveHost } from "./lib/hostStorage"
+import { resolveInitialHost } from "./logic/hostConfig"
 import { CockpitScreen } from "./CockpitScreen"
 
 // アプリ全体で共有するデフォルト実体(モジュールシングルトン)。
@@ -18,7 +18,7 @@ import { CockpitScreen } from "./CockpitScreen"
 const defaultClient = createTeleopClient()
 const defaultKeyboard = createKeyboardInput(window)
 
-interface CockpitScreenContainerProps {
+interface CockpitPageProps {
     /** teleop クライアント。テストや Storybook では差し替える */
     readonly client?: TeleopClient
     /** キーボード入力ソース。テストでは差し替える */
@@ -30,16 +30,16 @@ interface CockpitScreenContainerProps {
 }
 
 /**
- * CockpitScreen の Container。
+ * Cockpit ページのエントリ(Container)。
  * teleop クライアントの購読・キーボード配線・ホスト設定の永続化を担い、
- * 表示データを Presentational へ渡す。
+ * 表示データを Presentational(CockpitScreen)へ渡す。
  */
-export function CockpitScreenContainer({
+export function CockpitPage({
     client = defaultClient,
     keyboard = defaultKeyboard,
     useTeleopSnapshot = useTeleop,
     storage = window.localStorage,
-}: CockpitScreenContainerProps) {
+}: CockpitPageProps) {
     const snapshot = useTeleopSnapshot(client)
     const [host, setHost] = useState(() =>
         resolveInitialHost(loadSavedHost(storage), window.location.hostname),

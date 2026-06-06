@@ -1,7 +1,7 @@
 import { act, render, screen, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { createKeyboardInput, type TeleopClient, type TeleopSnapshot } from "@/features/teleop"
-import { CockpitScreenContainer } from "./CockpitScreenContainer"
+import { CockpitPage } from "./CockpitPage"
 
 function createFakeClient() {
     let state: TeleopSnapshot = { status: "idle", axes: { vx: 0, wz: 0 } }
@@ -47,11 +47,11 @@ function createMemoryStorage(initial: Record<string, string> = {}): Storage {
     }
 }
 
-function renderContainer(overrides: Partial<Parameters<typeof CockpitScreenContainer>[0]> = {}) {
+function renderContainer(overrides: Partial<Parameters<typeof CockpitPage>[0]> = {}) {
     const { client, setState } = createFakeClient()
     const storage = createMemoryStorage()
     const view = render(
-        <CockpitScreenContainer
+        <CockpitPage
             client={client}
             keyboard={createKeyboardInput(window)}
             storage={storage}
@@ -61,7 +61,7 @@ function renderContainer(overrides: Partial<Parameters<typeof CockpitScreenConta
     return { client, setState, storage, view }
 }
 
-describe("CockpitScreenContainer", () => {
+describe("CockpitPage", () => {
     it("保存済みホストを初期値として表示し、カメラ URL に反映する", () => {
         renderContainer({ storage: createMemoryStorage({ "ml3-cockpit.host": "10.0.0.7" }) })
 
