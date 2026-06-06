@@ -1,0 +1,34 @@
+# dependencies
+node_modules
+
+# python
+__pycache__
+
+# build
+dist
+storybook-static
+
+# coverage
+coverage
+
+# logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# env
+.env
+.env.local
+.env.*.local
+
+# vitest
+__screenshots__
+
+*storybook.log

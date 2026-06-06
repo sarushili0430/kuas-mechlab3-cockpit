@@ -1,0 +1,8 @@
+node_modules
+.claude
+dist
+coverage
+storybook-static
+pnpm-lock.yaml
+design-system
+CHANGELOG.md
