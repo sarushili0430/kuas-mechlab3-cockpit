@@ -1,14 +1,33 @@
 # kuas-mechlab3-cockpit
 
-KUAS 機械工学実験3 向けのテレメトリ監視ダッシュボード(cockpit)。
-モーター実験の計測値(回転数・トルク・温度・電流)をリアルタイム表示する。
+[KUAS MechLab3 (ML3)](https://github.com/sarushili0430/kuas-mechlab3) ―
+4輪スキッドステアロボットの**遠隔操縦コックピット**。
+前後カメラの MJPEG 映像を見ながら、WebSocket 経由の WASD 操縦で機体を走らせる。
+
+本体側のクライアント仕様は `kuas-mechlab3` リポジトリの `docs/teleop-client.md` が正本。
+
+| チャネル               | 方向 | プロトコル                | 既定エンドポイント                |
+| ---------------------- | ---- | ------------------------- | --------------------------------- |
+| カメラ映像             | 受信 | HTTP / MJPEG              | `http://<pi>:8080/stream?topic=…` |
+| 操縦指令 `{"vx","wz"}` | 送信 | WebSocket(約20Hz連続送信) | `ws://<pi>:9001`                  |
+
+## 使い方
+
+1. ラズパイ側で `cameras_launch.py`(:8080)と `teleop_launch.py`(:9001)を起動する
+2. このコックピットを開き、ヘッダーの**接続先ホスト**に Pi の IP を設定する(保存される)
+3. **接続**を押し、画面にフォーカスして **W / A / S / D** で操縦する
+   (キーを離すと停止。切断・無入力でも機体側のフェイルセーフで自動停止する)
+4. **緊急停止**は停止指令を送って WebSocket を切断する
+
+> HTTPS で配信すると `http://` の映像と `ws://` が混在コンテンツでブロックされるため、
+> コックピットは `http://` 配信か `file://` で開くこと。
 
 ## 技術スタック
 
 | 区分          | 採用技術                                                                           |
 | ------------- | ---------------------------------------------------------------------------------- |
 | ビルド        | Vite + React 19 + TypeScript(厳格設定・`any` 禁止)                                 |
-| UI            | Tailwind CSS v4 + shadcn/ui(Dark Mode ファースト)                                  |
+| UI            | Tailwind CSS v4 + shadcn/ui(Dark Mode (OLED) 専用)                                 |
 | テスト        | Vitest(unit + Storybook browser tests)+ カバレッジ                                 |
 | カタログ      | Storybook(a11y / vitest アドオン付き)                                              |
 | Lint / Format | ESLint(typescript-eslint strict-type-checked)/ Prettier(セミコロンなし・スペース4) |
@@ -35,6 +54,9 @@ pnpm format             # Prettier(書き込み)
 pnpm build              # 型チェック + 本番ビルド
 ```
 
+機体なしで操縦フローを確認するには Storybook の
+`Cockpit/CockpitScreenContainer → Demo`(常に接続に成功するデモソケット)を使う。
+
 ## ディレクトリ構造(feature-based)
 
 ```
@@ -42,14 +64,18 @@ src/
 ├── components/ui/        # shadcn/ui(ベンダーコード。lint 一部緩和)
 ├── lib/                  # 共有ユーティリティ
 ├── features/
-│   └── telemetry/        # テレメトリ監視機能
-│       ├── components/   # Container / Presentational + テスト + ストーリー
-│       ├── hooks/        # useTelemetryMonitor(useSyncExternalStore ベース)
-│       ├── lib/          # テレメトリソース(外部システム境界)
-│       ├── logic/        # ビジネスロジック(純粋関数・カバレッジ100%対象)
-│       ├── constants.ts
-│       ├── types.ts
-│       └── index.ts      # 公開 API
+│   ├── teleop/           # 操縦チャネル(WebSocket)
+│   │   ├── logic/        # キー集合→正規化軸の純粋関数(REP-103)
+│   │   ├── lib/          # teleopClient(20Hz送信・自動再接続)/ keyboardInput
+│   │   ├── hooks/        # useTeleop(useSyncExternalStore ベース)
+│   │   └── components/   # ConnectionBadge / DriveKeypad / AxesIndicator
+│   ├── camera/           # 映像チャネル(MJPEG)
+│   │   ├── logic/        # ストリーム URL 組み立て
+│   │   └── components/   # CameraFeed(LIVE / NO SIGNAL / 再試行)
+│   └── cockpit/          # 画面の組み立て
+│       ├── logic/        # 接続先ホストの正規化・初期値解決
+│       ├── lib/          # ホスト設定の localStorage 永続化
+│       └── components/   # CockpitScreen(Presentational)+ Container
 ├── test/                 # テストセットアップ
 └── App.tsx
 ```
@@ -60,15 +86,18 @@ src/
 - **ビジネスロジックは純粋関数**: `features/*/logic/` に置き、単体テストでカバレッジを担保する
 - **Container / Presentational パターン**:
     - Presentational は props のみに依存し、スナップショットテスト可能にする
-    - 複雑なステートを扱うフックは Container へ**外部から注入**する(`useTelemetry` prop)
-    - ダイアログ開閉やタブ切り替え等の単純な UI 状態のみコンポーネント内 `useState` 可
+    - 複雑なステートを扱うフックは Container へ**外部から注入**する(`useTeleopSnapshot` prop)
+    - ダイアログ開閉や1フィールドフォーム等の単純な UI 状態のみコンポーネント内 `useState` 可
 - **useEffect をステート管理に使わない**:
     - 派生値はレンダー中に純粋関数で計算する
     - 外部システムとの同期は `useSyncExternalStore` を第一候補とする
+    - useEffect は外部システム同士の配線・ライフサイクル(キーボード購読、`pagehide`)に限る
 - **コミット**: Conventional Commits(commit-msg フックで強制)
 
 ## デザインシステム
 
-`design-system/kuas-mechlab3-cockpit/MASTER.md` を参照。
-Dark Mode (OLED) / Blue (#1E40AF, #3B82F6) + Amber (#F59E0B) / Fira Sans + Fira Code。
-テーマ変数は `src/index.css` の `:root` / `.dark` で定義。
+`design-system/kuas-mechlab3-cockpit/MASTER.md`(全体)と
+`design-system/kuas-mechlab3-cockpit/pages/cockpit.md`(操縦画面)を参照。
+Dark Mode (OLED) 専用・Mission Control Grid。
+Blue = データ / Amber = CTA / Green = 接続 / Red = 危険。Fira Sans + Fira Code。
+テーマ変数は `src/index.css` で定義(`html.dark` を常時付与)。
