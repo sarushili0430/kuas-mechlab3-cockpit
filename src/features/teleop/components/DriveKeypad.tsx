@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { useTranslation } from "@/i18n"
 import type { DriveCommandKey } from "../logic/axes"
 
 interface DriveKeypadProps {
@@ -32,12 +33,10 @@ function Keycap({ label, active }: KeycapProps) {
  * 「実際に機体へ送信している指令」を点灯で表す(cockpit.md Drive Keypad)。
  */
 export function DriveKeypad({ directions }: DriveKeypadProps) {
+    const { t } = useTranslation()
+
     return (
-        <div
-            role="img"
-            aria-label="操縦方向インジケータ"
-            className="inline-grid grid-cols-3 gap-1.5"
-        >
+        <div role="img" aria-label={t("keypad.label")} className="inline-grid grid-cols-3 gap-1.5">
             <span />
             <Keycap label="W" active={directions.has("w")} />
             <span />

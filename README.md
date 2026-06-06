@@ -28,6 +28,7 @@
 | ------------- | ---------------------------------------------------------------------------------- |
 | ビルド        | Vite + React 19 + TypeScript(厳格設定・`any` 禁止)                                 |
 | UI            | Tailwind CSS v4 + shadcn/ui(Dark Mode (OLED) 専用)                                 |
+| 国際化        | 自前の軽量 i18n(React Context + `t()`・日本語 / 英語)                              |
 | テスト        | Vitest(unit + Storybook browser tests)+ カバレッジ                                 |
 | カタログ      | Storybook(a11y / vitest アドオン付き)                                              |
 | Lint / Format | ESLint(typescript-eslint strict-type-checked)/ Prettier(セミコロンなし・スペース4) |
@@ -63,6 +64,10 @@ pnpm build              # 型チェック + 本番ビルド
 src/
 ├── components/ui/        # shadcn/ui(ベンダーコード。lint 一部緩和)
 ├── lib/                  # 共有ユーティリティ
+├── i18n/                 # 多言語対応(日本語 / 英語)
+│   ├── logic/            # 文字列補間・初期言語の解決(純粋関数)
+│   ├── lib/              # 表示言語の localStorage 永続化
+│   └── components/       # LanguageSwitcher(言語切替トグル)
 ├── features/
 │   ├── teleop/           # 操縦チャネル(WebSocket)
 │   │   ├── logic/        # キー集合→正規化軸の純粋関数(REP-103)
@@ -92,6 +97,8 @@ src/
     - 派生値はレンダー中に純粋関数で計算する
     - 外部システムとの同期は `useSyncExternalStore` を第一候補とする
     - useEffect は外部システム同士の配線・ライフサイクル(キーボード購読、`pagehide`)に限る
+- **ユーザー向け文字列は i18n 経由**: 画面に出す文言は `src/i18n` の `useTranslation()` が返す `t()` で解決する。
+  新しいキーは `translations.ts` の `ja`(正本)に追加し、`en` も同時に埋める(欠落は型エラーになる)
 - **コミット**: Conventional Commits(commit-msg フックで強制)
 
 ## デザインシステム

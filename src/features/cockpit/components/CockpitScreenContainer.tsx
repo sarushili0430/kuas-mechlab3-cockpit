@@ -9,6 +9,7 @@ import {
     type KeyboardInput,
     type TeleopClient,
 } from "@/features/teleop"
+import { useTranslation } from "@/i18n"
 import { loadSavedHost, saveHost } from "../lib/hostStorage"
 import { resolveInitialHost } from "../logic/hostConfig"
 import { CockpitScreen } from "./CockpitScreen"
@@ -40,6 +41,7 @@ export function CockpitScreenContainer({
     useTeleopSnapshot = useTeleop,
     storage = window.localStorage,
 }: CockpitScreenContainerProps) {
+    const { t } = useTranslation()
     const snapshot = useTeleopSnapshot(client)
     const [host, setHost] = useState(() =>
         resolveInitialHost(loadSavedHost(storage), window.location.hostname),
@@ -77,7 +79,7 @@ export function CockpitScreenContainer({
     // 派生データはレンダー中に計算する(useEffect は使わない)
     const cameras = CAMERA_FEEDS.map((feed) => ({
         id: feed.id,
-        label: feed.label,
+        label: t(`camera.${feed.id}`),
         src: buildStreamUrl(host, feed.topic),
     }))
 

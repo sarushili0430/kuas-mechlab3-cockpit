@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { RotateCwIcon, VideoOffIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from "@/i18n"
 
 interface CameraFeedProps {
     readonly label: string
@@ -22,6 +23,7 @@ type FeedStatus = "no-source" | "connecting" | "live" | "error"
  * src が変われば導出結果が connecting に戻るため、useEffect での同期は不要。
  */
 export function CameraFeed({ label, src }: CameraFeedProps) {
+    const { t } = useTranslation()
     const [lastEvent, setLastEvent] = useState<StreamEvent | null>(null)
     const [retryNonce, setRetryNonce] = useState(0)
 
@@ -39,7 +41,7 @@ export function CameraFeed({ label, src }: CameraFeedProps) {
             {/* 接続中はストリーム描画開始までの背面表示(最初のフレームで自然に隠れる) */}
             {status === "connecting" && (
                 <p className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground motion-safe:animate-pulse">
-                    接続中…
+                    {t("camera.connecting")}
                 </p>
             )}
 
@@ -47,7 +49,7 @@ export function CameraFeed({ label, src }: CameraFeedProps) {
                 <img
                     key={`${src}#${String(retryNonce)}`}
                     src={src}
-                    alt={`${label}カメラ映像`}
+                    alt={t("camera.alt", { label })}
                     className="relative size-full flex-1 object-contain"
                     onLoad={() => {
                         setLastEvent({ src, kind: "live" })
@@ -65,7 +67,7 @@ export function CameraFeed({ label, src }: CameraFeedProps) {
                     {status === "error" && (
                         <Button variant="outline" size="sm" onClick={handleRetry}>
                             <RotateCwIcon aria-hidden data-icon="inline-start" />
-                            再試行
+                            {t("camera.retry")}
                         </Button>
                     )}
                 </div>

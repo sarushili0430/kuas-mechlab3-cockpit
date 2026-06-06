@@ -1,15 +1,9 @@
 import { cn } from "@/lib/utils"
+import { useTranslation } from "@/i18n"
 import type { TeleopStatus } from "../types"
 
 interface ConnectionBadgeProps {
     readonly status: TeleopStatus
-}
-
-const STATUS_LABELS: Record<TeleopStatus, string> = {
-    idle: "未接続",
-    connecting: "接続中…",
-    open: "接続済",
-    reconnecting: "再接続中…",
 }
 
 /**
@@ -17,6 +11,8 @@ const STATUS_LABELS: Record<TeleopStatus, string> = {
  * 色だけに依存せずラベルを併記する(MASTER.md Status Indicator)。
  */
 export function ConnectionBadge({ status }: ConnectionBadgeProps) {
+    const { t } = useTranslation()
+
     return (
         <span
             role="status"
@@ -41,7 +37,7 @@ export function ConnectionBadge({ status }: ConnectionBadgeProps) {
                     status === "reconnecting" && "text-destructive",
                 )}
             >
-                WS {STATUS_LABELS[status]}
+                WS {t(`connection.${status}`)}
             </span>
         </span>
     )

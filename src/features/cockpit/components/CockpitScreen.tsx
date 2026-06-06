@@ -9,6 +9,7 @@ import {
     type DriveAxes,
     type TeleopStatus,
 } from "@/features/teleop"
+import { LanguageSwitcher, useTranslation } from "@/i18n"
 import { HostSettingsForm } from "./HostSettingsForm"
 
 /** 画面に表示するカメラ1面分のデータ */
@@ -42,6 +43,7 @@ export function CockpitScreen({
     onConnect,
     onDisconnect,
 }: CockpitScreenProps) {
+    const { t } = useTranslation()
     // 表示はキーの生状態ではなく「実際に機体へ送信している指令」から導出する
     const directions = activeDirectionsFromAxes(axes)
 
@@ -56,17 +58,18 @@ export function CockpitScreen({
                         <h1 className="font-heading text-lg font-semibold tracking-widest">
                             ML3 COCKPIT
                         </h1>
-                        <p className="text-xs text-muted-foreground">KUAS MechLab3 遠隔操縦</p>
+                        <p className="text-xs text-muted-foreground">{t("header.subtitle")}</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                     <ConnectionBadge status={status} />
                     <HostSettingsForm host={host} onHostChange={onHostChange} />
+                    <LanguageSwitcher />
                 </div>
             </header>
 
             <main
-                aria-label="カメラ映像"
+                aria-label={t("header.cameras")}
                 className="grid flex-1 grid-cols-1 gap-4 p-4 md:grid-cols-2 md:px-6"
             >
                 {cameras.map((camera) => (
@@ -75,7 +78,7 @@ export function CockpitScreen({
             </main>
 
             <section
-                aria-label="操縦コンソール"
+                aria-label={t("console.area")}
                 className="border-t border-border bg-card/50 px-4 py-4 md:px-6"
             >
                 <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-4">
@@ -90,7 +93,7 @@ export function CockpitScreen({
                             className="min-w-36 bg-cta font-semibold text-cta-foreground hover:bg-cta/90"
                         >
                             <PlugZapIcon aria-hidden data-icon="inline-start" />
-                            接続
+                            {t("console.connect")}
                         </Button>
                     ) : (
                         <Button
@@ -99,14 +102,13 @@ export function CockpitScreen({
                             className="min-w-36 bg-destructive font-semibold text-destructive-foreground hover:bg-destructive/90"
                         >
                             <OctagonXIcon aria-hidden data-icon="inline-start" />
-                            {status === "open" ? "緊急停止" : "接続中止"}
+                            {status === "open"
+                                ? t("console.emergencyStop")
+                                : t("console.cancelConnect")}
                         </Button>
                     )}
                 </div>
-                <p className="mt-3 text-xs text-muted-foreground">
-                    この画面にフォーカスして W / A / S / D で操縦できます
-                    (キーを離すと停止・切断時も機体は自動停止します)
-                </p>
+                <p className="mt-3 text-xs text-muted-foreground">{t("console.hint")}</p>
             </section>
         </div>
     )
