@@ -19,7 +19,7 @@ export default defineConfig({
     test: {
         coverage: {
             provider: "v8",
-            reporter: ["text", "html", "lcov", "json-summary"],
+            reporter: ["text", "html", "lcov", "json-summary", "json"],
             include: ["src/**/*.{ts,tsx}"],
             exclude: [
                 // shadcn/ui のベンダーコードと型定義・エントリポイントは対象外
