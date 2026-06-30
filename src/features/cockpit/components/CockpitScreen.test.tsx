@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { CockpitScreen } from "./CockpitScreen"
 
@@ -21,7 +21,7 @@ describe("CockpitScreen", () => {
         expect(screen.getByRole("heading", { name: "ML3 COCKPIT" })).toBeInTheDocument()
         expect(screen.getByRole("img", { name: "前方カメラ映像" })).toBeInTheDocument()
         expect(screen.getByRole("img", { name: "後方カメラ映像" })).toBeInTheDocument()
-        expect(screen.getByText(/W \/ A \/ S \/ D で操縦/)).toBeInTheDocument()
+        expect(screen.getByText(/W \/ A \/ S \/ D/)).toBeInTheDocument()
     })
 
     it("未接続では接続ボタンを表示し、押すと onConnect を呼ぶ", async () => {
@@ -52,9 +52,31 @@ describe("CockpitScreen", () => {
         render(<CockpitScreen {...baseProps} status="open" axes={{ vx: 1, wz: -0.5 }} />)
         expect(screen.getByText("+1.00")).toBeInTheDocument()
         expect(screen.getByText("-0.50")).toBeInTheDocument()
-        // vx>0 → W、wz<0 → D が点灯
-        expect(screen.getByText("W")).toHaveAttribute("data-active", "true")
-        expect(screen.getByText("D")).toHaveAttribute("data-active", "true")
+        // vx>0 → 前進(W)、wz<0 → 右旋回(D) が点灯
+        expect(screen.getByRole("button", { name: "前進" })).toHaveAttribute("data-active", "true")
+        expect(screen.getByRole("button", { name: "右旋回" })).toHaveAttribute(
+            "data-active",
+            "true",
+        )
+    })
+
+    it("方向ボタンの押下/解放を onDirectionPress/onDirectionRelease へ流す", () => {
+        const onDirectionPress = vi.fn()
+        const onDirectionRelease = vi.fn()
+        render(
+            <CockpitScreen
+                {...baseProps}
+                onDirectionPress={onDirectionPress}
+                onDirectionRelease={onDirectionRelease}
+            />,
+        )
+        const forward = screen.getByRole("button", { name: "前進" })
+
+        fireEvent.pointerDown(forward, { button: 0 })
+        expect(onDirectionPress).toHaveBeenCalledExactlyOnceWith("w")
+
+        fireEvent.pointerUp(forward)
+        expect(onDirectionRelease).toHaveBeenCalledExactlyOnceWith("w")
     })
 
     it("未接続のスナップショットと一致する", () => {

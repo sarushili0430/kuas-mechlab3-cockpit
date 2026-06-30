@@ -7,6 +7,7 @@ import {
     ConnectionBadge,
     DriveKeypad,
     type DriveAxes,
+    type DriveCommandKey,
     type TeleopStatus,
 } from "@/features/teleop"
 import { LanguageSwitcher, useTranslation } from "@/i18n"
@@ -27,6 +28,10 @@ interface CockpitScreenProps {
     readonly onHostChange: (host: string) => void
     readonly onConnect: () => void
     readonly onDisconnect: () => void
+    /** 方向ボタンを押し始めたとき(タッチ操縦) */
+    readonly onDirectionPress?: (direction: DriveCommandKey) => void
+    /** 方向ボタンを離したとき(タッチ操縦) */
+    readonly onDirectionRelease?: (direction: DriveCommandKey) => void
 }
 
 /**
@@ -42,6 +47,8 @@ export function CockpitScreen({
     onHostChange,
     onConnect,
     onDisconnect,
+    onDirectionPress,
+    onDirectionRelease,
 }: CockpitScreenProps) {
     const { t } = useTranslation()
     // 表示はキーの生状態ではなく「実際に機体へ送信している指令」から導出する
@@ -81,16 +88,22 @@ export function CockpitScreen({
                 aria-label={t("console.area")}
                 className="border-t border-border bg-card/50 px-4 py-4 md:px-6"
             >
-                <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-4">
-                    <DriveKeypad directions={directions} />
-                    <div className="min-w-56 flex-1">
+                <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-10">
+                    <div className="flex justify-center sm:block">
+                        <DriveKeypad
+                            directions={directions}
+                            onPress={onDirectionPress}
+                            onRelease={onDirectionRelease}
+                        />
+                    </div>
+                    <div className="sm:min-w-56 sm:flex-1">
                         <AxesIndicator axes={axes} />
                     </div>
                     {status === "idle" ? (
                         <Button
                             size="lg"
                             onClick={onConnect}
-                            className="min-w-36 bg-cta font-semibold text-cta-foreground hover:bg-cta/90"
+                            className="w-full bg-cta font-semibold text-cta-foreground hover:bg-cta/90 sm:w-auto sm:min-w-36"
                         >
                             <PlugZapIcon aria-hidden data-icon="inline-start" />
                             {t("console.connect")}
@@ -99,7 +112,7 @@ export function CockpitScreen({
                         <Button
                             size="lg"
                             onClick={onDisconnect}
-                            className="min-w-36 bg-destructive font-semibold text-destructive-foreground hover:bg-destructive/90"
+                            className="w-full bg-destructive font-semibold text-destructive-foreground hover:bg-destructive/90 sm:w-auto sm:min-w-36"
                         >
                             <OctagonXIcon aria-hidden data-icon="inline-start" />
                             {status === "open"

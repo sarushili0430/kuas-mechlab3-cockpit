@@ -7,7 +7,12 @@ export {
     type TeleopClientOptions,
     type WebSocketLike,
 } from "./lib/teleopClient"
-export { activeDirectionsFromAxes, axesFromKeys, STOP_AXES } from "./logic/axes"
+export {
+    activeDirectionsFromAxes,
+    axesFromKeys,
+    STOP_AXES,
+    type DriveCommandKey,
+} from "./logic/axes"
 export { AxesIndicator } from "./components/AxesIndicator"
 export { ConnectionBadge } from "./components/ConnectionBadge"
 export { DriveKeypad } from "./components/DriveKeypad"
