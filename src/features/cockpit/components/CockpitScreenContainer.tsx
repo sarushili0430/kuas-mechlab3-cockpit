@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { buildStreamUrl, CAMERA_FEEDS } from "@/features/camera"
 import {
     axesFromKeys,
@@ -6,6 +6,7 @@ import {
     createKeyboardInput,
     createTeleopClient,
     useTeleop,
+    type DriveCommandKey,
     type KeyboardInput,
     type TeleopClient,
 } from "@/features/teleop"
@@ -47,13 +48,34 @@ export function CockpitScreenContainer({
         resolveInitialHost(loadSavedHost(storage), window.location.hostname),
     )
 
-    // 外部システム同士の配線: キーボード押下集合 → teleop クライアントの目標軸。
-    // どちらも React 外のシステムなので useEffect で購読を管理する。
-    useEffect(() => {
-        return keyboard.subscribe(() => {
-            client.setAxes(axesFromKeys(keyboard.getKeys()))
-        })
+    // 画面の方向ボタンで現在押されている方向。表示はスナップショット由来なので
+    // 再レンダー不要 → state ではなく ref に持つ。
+    const pressedButtonsRef = useRef<Set<DriveCommandKey>>(new Set())
+
+    // キーボード押下集合 ∪ 画面ボタン押下集合 → teleop クライアントの目標軸。
+    const applyDriveAxes = useCallback((): void => {
+        const keys = new Set<string>(keyboard.getKeys())
+        for (const direction of pressedButtonsRef.current) {
+            keys.add(direction)
+        }
+        client.setAxes(axesFromKeys(keys))
     }, [client, keyboard])
+
+    // 外部システム同士の配線: キーボード押下集合 → 目標軸。
+    // どちらも React 外のシステムなので useEffect で購読を管理する。
+    useEffect(() => keyboard.subscribe(applyDriveAxes), [keyboard, applyDriveAxes])
+
+    // 画面の方向ボタンの押下/解放を押下集合へ反映し、目標軸を更新する。
+    const handleDirectionPress = (direction: DriveCommandKey): void => {
+        pressedButtonsRef.current = new Set(pressedButtonsRef.current).add(direction)
+        applyDriveAxes()
+    }
+    const handleDirectionRelease = (direction: DriveCommandKey): void => {
+        const next = new Set(pressedButtonsRef.current)
+        next.delete(direction)
+        pressedButtonsRef.current = next
+        applyDriveAxes()
+    }
 
     // 外部システム同期: ページ離脱時に停止指令を送って切断する
     // (本体側のフェイルセーフより速く確実に止める。teleop-client.md 推奨)
@@ -96,6 +118,8 @@ export function CockpitScreenContainer({
             onDisconnect={() => {
                 client.disconnect()
             }}
+            onDirectionPress={handleDirectionPress}
+            onDirectionRelease={handleDirectionRelease}
         />
     )
 }

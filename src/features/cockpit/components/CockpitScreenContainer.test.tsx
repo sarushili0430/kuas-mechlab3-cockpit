@@ -93,6 +93,33 @@ describe("CockpitScreenContainer", () => {
         expect(client.setAxes).toHaveBeenLastCalledWith({ vx: 0, wz: 0 })
     })
 
+    it("画面の方向ボタン押下を軸指令としてクライアントへ流す", () => {
+        const { client } = renderContainer()
+        const forward = screen.getByRole("button", { name: "前進" })
+
+        fireEvent.pointerDown(forward, { button: 0 })
+        expect(client.setAxes).toHaveBeenLastCalledWith({ vx: 1, wz: 0 })
+
+        fireEvent.pointerUp(forward)
+        expect(client.setAxes).toHaveBeenLastCalledWith({ vx: 0, wz: 0 })
+    })
+
+    it("キーボードと画面ボタンの同時入力を合成する", () => {
+        const { client } = renderContainer()
+
+        // キーボードで左旋回 (wz:+1)
+        fireEvent.keyDown(window, { key: "a" })
+        expect(client.setAxes).toHaveBeenLastCalledWith({ vx: 0, wz: 1 })
+
+        // 画面ボタンで前進 (vx:+1) を重ねると両軸が合成される
+        fireEvent.pointerDown(screen.getByRole("button", { name: "前進" }), { button: 0 })
+        expect(client.setAxes).toHaveBeenLastCalledWith({ vx: 1, wz: 1 })
+
+        // キーを離してもボタンの前進は維持される
+        fireEvent.keyUp(window, { key: "a" })
+        expect(client.setAxes).toHaveBeenLastCalledWith({ vx: 1, wz: 0 })
+    })
+
     it("アンマウント後はキー入力を流さない", () => {
         const { client, view } = renderContainer()
         view.unmount()
