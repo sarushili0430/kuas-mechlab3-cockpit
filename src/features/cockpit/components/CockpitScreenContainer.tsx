@@ -10,6 +10,7 @@ import {
     type KeyboardInput,
     type TeleopClient,
 } from "@/features/teleop"
+import { RecordingControlContainer } from "@/features/recording"
 import { useTranslation } from "@/i18n"
 import { loadSavedHost, saveHost } from "../lib/hostStorage"
 import { resolveInitialHost } from "../logic/hostConfig"
@@ -120,6 +121,7 @@ export function CockpitScreenContainer({
             }}
             onDirectionPress={handleDirectionPress}
             onDirectionRelease={handleDirectionRelease}
+            recordingSlot={<RecordingControlContainer host={host} />}
         />
     )
 }
