@@ -1,3 +1,4 @@
+import type { ReactNode } from "react"
 import { JoystickIcon, OctagonXIcon, PlugZapIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { CameraFeed } from "@/features/camera"
@@ -32,6 +33,8 @@ interface CockpitScreenProps {
     readonly onDirectionPress?: (direction: DriveCommandKey) => void
     /** 方向ボタンを離したとき(タッチ操縦) */
     readonly onDirectionRelease?: (direction: DriveCommandKey) => void
+    /** AI データ収集コントロール(録画の開始/停止)。Container が差し込む */
+    readonly recordingSlot?: ReactNode
 }
 
 /**
@@ -49,6 +52,7 @@ export function CockpitScreen({
     onDisconnect,
     onDirectionPress,
     onDirectionRelease,
+    recordingSlot,
 }: CockpitScreenProps) {
     const { t } = useTranslation()
     // 表示はキーの生状態ではなく「実際に機体へ送信している指令」から導出する
@@ -121,6 +125,7 @@ export function CockpitScreen({
                         </Button>
                     )}
                 </div>
+                {recordingSlot !== undefined ? <div className="mt-4">{recordingSlot}</div> : null}
                 <p className="mt-3 text-xs text-muted-foreground">{t("console.hint")}</p>
             </section>
         </div>
