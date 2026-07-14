@@ -1,0 +1,17 @@
+{
+    "overview": "A short indoor loop: start facing a hallway, follow it to a red cone, turn left at the cone, then stop on the taped finish line on the floor.",
+    "waypoints": [
+        {
+            "instruction": "Drive straight down the hallway, staying roughly centered, until the red cone is close ahead.",
+            "landmark": "red cone"
+        },
+        {
+            "instruction": "At the cone, turn left until the taped finish line is ahead of you.",
+            "landmark": "taped finish line"
+        },
+        {
+            "instruction": "Approach the finish line slowly and stop on it.",
+            "landmark": "taped finish line"
+        }
+    ]
+}
