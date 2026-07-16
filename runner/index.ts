@@ -3,7 +3,7 @@
  *
  *   pnpm runner --course runner/course.example.json
  *
- * 設定は .env / 環境変数 (ANTHROPIC_API_KEY, ML3_HOST, ...) と CLI フラグから。
+ * 設定は .env / 環境変数 (ANTHROPIC_API_KEY / OPENAI_API_KEY, ML3_HOST, ...) と CLI フラグから。
  */
 import { readFile } from "node:fs/promises"
 import process from "node:process"
@@ -15,11 +15,13 @@ import { buildRecordUrl } from "../src/features/recording/constants"
 import { createRecordClient } from "../src/features/recording/lib/recordClient"
 import { buildTeleopUrl } from "../src/features/teleop/constants"
 import { createTeleopClient } from "../src/features/teleop/lib/teleopClient"
-import { createAnthropicClient, DEFAULT_MODEL } from "./anthropic"
+import { createAnthropicClient } from "./anthropic"
 import { createDecider } from "./agent"
 import { fetchFrame } from "./camera"
-import type { LlmImage } from "./llm"
+import type { LlmClient, LlmImage } from "./llm"
 import { runCourse, type CameraFeedId, type RunnerDeps } from "./loop"
+import { createOpenAiClient } from "./openai"
+import { API_KEY_ENV, resolveProvider } from "./provider"
 import { createRobot, type RecordBinding, type Robot } from "./robot"
 import { parseCourseBrief, type CourseBrief } from "./types"
 
@@ -79,6 +81,7 @@ async function main(): Promise<void> {
             course: { type: "string" },
             "max-steps": { type: "string" },
             "speed-scale": { type: "string" },
+            provider: { type: "string" },
             model: { type: "string" },
             record: { type: "boolean", default: false },
             rear: { type: "boolean", default: false },
@@ -97,17 +100,29 @@ async function main(): Promise<void> {
     const speedScale = parseNumber(values["speed-scale"] ?? process.env.ML3_SPEED_SCALE, 0.5)
     const maxDurationS = parseNumber(process.env.ML3_MAX_DURATION_S, 3)
     const maxSteps = Math.max(1, Math.trunc(parseNumber(values["max-steps"], 40)))
-    const model = values.model ?? DEFAULT_MODEL
     const course = await loadCourse(values.course)
 
-    const apiKey = process.env.ANTHROPIC_API_KEY
-    if (apiKey === undefined || apiKey === "") {
-        throw new Error("ANTHROPIC_API_KEY is not set (put it in .env or the environment)")
+    const hasEnv = (value: string | undefined): boolean => value !== undefined && value !== ""
+    const { provider, model } = resolveProvider({
+        provider: values.provider,
+        model: values.model,
+        keys: {
+            anthropic: hasEnv(process.env.ANTHROPIC_API_KEY),
+            openai: hasEnv(process.env.OPENAI_API_KEY),
+        },
+    })
+    const keyEnv = API_KEY_ENV[provider]
+    if (!hasEnv(process.env[keyEnv])) {
+        throw new Error(
+            `${keyEnv} is not set for provider "${provider}" (put it in .env or the environment)`,
+        )
     }
 
     const capture = (feed: CameraFeedId): Promise<LlmImage> =>
         fetchFrame(buildStreamUrl(host, topicFor(feed)))
-    const decider = createDecider(createAnthropicClient(model))
+    const client: LlmClient =
+        provider === "openai" ? createOpenAiClient(model) : createAnthropicClient(model)
+    const decider = createDecider(client)
 
     let robot: Robot
     if (dryRun) {
@@ -126,8 +141,8 @@ async function main(): Promise<void> {
     }
 
     log(
-        `ML3 course runner → host=${host} model=${model} speedScale=${String(speedScale)} ` +
-            `maxSteps=${String(maxSteps)}${dryRun ? " (dry-run)" : ""}`,
+        `ML3 course runner → host=${host} provider=${provider} model=${model} ` +
+            `speedScale=${String(speedScale)} maxSteps=${String(maxSteps)}${dryRun ? " (dry-run)" : ""}`,
     )
 
     process.on("SIGINT", () => {

@@ -2,9 +2,6 @@
 import Anthropic from "@anthropic-ai/sdk"
 import type { LlmClient, LlmRequest } from "./llm"
 
-/** 既定モデル: 視覚 + エージェント性能と低レイテンシ・低コストのバランス。 */
-export const DEFAULT_MODEL = "claude-sonnet-5"
-
 /**
  * SDK クライアントを生成する。ANTHROPIC_API_KEY は SDK が環境から読む。
  * ここだけが `@anthropic-ai/sdk` に依存する境界 (ランナー本体は llm.ts 抽象のみ)。
