@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+        "ml3-robot": {
+            "command": "npx",
+            "args": ["-y", "tsx", "--env-file-if-exists=.env", "mcp/index.ts"],
+            "env": {
+                "ML3_HOST": "192.168.1.42",
+                "ML3_SPEED_SCALE": "0.5",
+                "ML3_MAX_DURATION_S": "3"
+            }
+        }
+    }
+}

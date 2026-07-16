@@ -47,7 +47,7 @@ export default defineConfig({
                     name: "runner",
                     globals: true,
                     environment: "node",
-                    include: ["runner/**/*.{test,spec}.ts"],
+                    include: ["runner/**/*.{test,spec}.ts", "mcp/**/*.{test,spec}.ts"],
                 },
             },
             {
