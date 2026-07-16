@@ -119,6 +119,32 @@ describe("createTeleopClient", () => {
         expect(client.getSnapshot().axes).toEqual({ vx: 1, wz: 0 })
     })
 
+    it("open 中は sendServo で servo コマンドを同じソケットへ送る", () => {
+        const { client, socket } = setup()
+        client.connect("ws://pi:9001")
+        socket(0).simulateOpen()
+
+        client.sendServo([90, 45.5])
+
+        expect(socket(0).sent.at(-1)).toBe('{"servo":[90,45.5]}')
+    })
+
+    it("未接続 (connecting) では sendServo は送らない", () => {
+        const { client, socket } = setup()
+        client.connect("ws://pi:9001")
+
+        client.sendServo([90, 45])
+
+        // まだ open していないので送信されない
+        expect(socket(0).sent).toEqual([])
+    })
+
+    it("idle では sendServo は何もしない (ソケット未生成)", () => {
+        const { client, sockets } = setup()
+        client.sendServo([90, 90])
+        expect(sockets).toHaveLength(0)
+    })
+
     it("接続が切れると送信を止め、待ち時間の後に同じ URL へ再接続する", () => {
         const { client, sockets, socket } = setup({ reconnectDelayMs: 1000 })
         client.connect("ws://pi:9001")

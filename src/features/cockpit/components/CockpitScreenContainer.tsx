@@ -11,6 +11,12 @@ import {
     type TeleopClient,
 } from "@/features/teleop"
 import { RecordingControlContainer } from "@/features/recording"
+import {
+    ARM_ARROW_KEYS,
+    ArmControlContainer,
+    createArmController,
+    type ArmController,
+} from "@/features/arm"
 import { useTranslation } from "@/i18n"
 import { loadSavedHost, saveHost } from "../lib/hostStorage"
 import { resolveInitialHost } from "../logic/hostConfig"
@@ -18,14 +24,19 @@ import { CockpitScreen } from "./CockpitScreen"
 
 // アプリ全体で共有するデフォルト実体(モジュールシングルトン)。
 // createKeyboardInput は購読されるまで DOM リスナーを付けないため生成自体に副作用はない。
+// 矢印キーはアーム操作に使うため、押下時の画面スクロールを抑止する。
 const defaultClient = createTeleopClient()
-const defaultKeyboard = createKeyboardInput(window)
+const defaultKeyboard = createKeyboardInput(window, ARM_ARROW_KEYS)
+// アームは走行と同じ WebSocket にサーボ指令を流す(送信は defaultClient 経由)。
+const defaultArm = createArmController({ sendServo: defaultClient.sendServo })
 
 interface CockpitScreenContainerProps {
     /** teleop クライアント。テストや Storybook では差し替える */
     readonly client?: TeleopClient
     /** キーボード入力ソース。テストでは差し替える */
     readonly keyboard?: KeyboardInput
+    /** アームコントローラ。テストや Storybook では差し替える */
+    readonly arm?: ArmController
     /** teleop 購読フック。外部から注入できるようにする(テスト容易性のため) */
     readonly useTeleopSnapshot?: typeof useTeleop
     /** 接続先ホストの永続化先 */
@@ -40,6 +51,7 @@ interface CockpitScreenContainerProps {
 export function CockpitScreenContainer({
     client = defaultClient,
     keyboard = defaultKeyboard,
+    arm = defaultArm,
     useTeleopSnapshot = useTeleop,
     storage = window.localStorage,
 }: CockpitScreenContainerProps) {
@@ -121,6 +133,7 @@ export function CockpitScreenContainer({
             }}
             onDirectionPress={handleDirectionPress}
             onDirectionRelease={handleDirectionRelease}
+            armSlot={<ArmControlContainer arm={arm} keyboard={keyboard} />}
             recordingSlot={<RecordingControlContainer host={host} />}
         />
     )

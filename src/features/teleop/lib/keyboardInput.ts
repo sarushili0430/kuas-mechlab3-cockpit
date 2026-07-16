@@ -15,8 +15,18 @@ function isEditableTarget(target: EventTarget | null): boolean {
     )
 }
 
-/** keydown / keyup / blur を監視するキーボード入力ソースを生成する */
-export function createKeyboardInput(target: EventTarget): KeyboardInput {
+/**
+ * keydown / keyup / blur を監視するキーボード入力ソースを生成する。
+ *
+ * @param preventDefaultKeys 押下時にブラウザ既定動作を抑止するキー (小文字)。
+ *   操縦に使う矢印キーの画面スクロールを止めるために渡す。キーリピート中も
+ *   抑止し続ける (押しっぱなしでスクロールしないように)。
+ */
+export function createKeyboardInput(
+    target: EventTarget,
+    preventDefaultKeys: Iterable<string> = [],
+): KeyboardInput {
+    const preventKeys = new Set(preventDefaultKeys)
     let keys = new Set<string>()
     const listeners = new Set<() => void>()
 
@@ -31,6 +41,10 @@ export function createKeyboardInput(target: EventTarget): KeyboardInput {
             return
         }
         const key = event.key.toLowerCase()
+        // 抑止対象はキーリピートでも毎回止める (押下集合の更新有無より前に判定する)
+        if (preventKeys.has(key)) {
+            event.preventDefault()
+        }
         if (keys.has(key)) {
             return
         }

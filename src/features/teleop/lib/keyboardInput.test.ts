@@ -78,6 +78,32 @@ describe("createKeyboardInput", () => {
         field.remove()
     })
 
+    it("preventDefaultKeys のキーは既定動作(スクロール等)を抑止する", () => {
+        const input = createKeyboardInput(window, ["arrowdown"])
+        const unsubscribe = input.subscribe(vi.fn())
+
+        const event = new KeyboardEvent("keydown", { key: "ArrowDown", cancelable: true })
+        window.dispatchEvent(event)
+
+        expect(event.defaultPrevented).toBe(true)
+        // 抑止しても押下集合には反映される
+        expect(input.getKeys()).toEqual(new Set(["arrowdown"]))
+
+        unsubscribe()
+    })
+
+    it("preventDefaultKeys 対象外のキーは既定動作を抑止しない", () => {
+        const input = createKeyboardInput(window, ["arrowdown"])
+        const unsubscribe = input.subscribe(vi.fn())
+
+        const event = new KeyboardEvent("keydown", { key: "w", cancelable: true })
+        window.dispatchEvent(event)
+
+        expect(event.defaultPrevented).toBe(false)
+
+        unsubscribe()
+    })
+
     it("最後の購読解除で DOM リスナーを外す(以後のキー入力を追跡しない)", () => {
         const input = createKeyboardInput(window)
         const unsubscribe = input.subscribe(vi.fn())

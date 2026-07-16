@@ -17,6 +17,7 @@ function createFakeClient() {
         connect: vi.fn(),
         disconnect: vi.fn(),
         setAxes: vi.fn(),
+        sendServo: vi.fn(),
     }
     const setState = (next: TeleopSnapshot): void => {
         state = next

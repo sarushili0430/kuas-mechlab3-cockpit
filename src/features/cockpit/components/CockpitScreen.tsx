@@ -33,6 +33,8 @@ interface CockpitScreenProps {
     readonly onDirectionPress?: (direction: DriveCommandKey) => void
     /** 方向ボタンを離したとき(タッチ操縦) */
     readonly onDirectionRelease?: (direction: DriveCommandKey) => void
+    /** アーム操作コントロール(肩/肘サーボ)。Container が差し込む */
+    readonly armSlot?: ReactNode
     /** AI データ収集コントロール(録画の開始/停止)。Container が差し込む */
     readonly recordingSlot?: ReactNode
 }
@@ -52,6 +54,7 @@ export function CockpitScreen({
     onDisconnect,
     onDirectionPress,
     onDirectionRelease,
+    armSlot,
     recordingSlot,
 }: CockpitScreenProps) {
     const { t } = useTranslation()
@@ -125,6 +128,7 @@ export function CockpitScreen({
                         </Button>
                     )}
                 </div>
+                {armSlot !== undefined ? <div className="mt-4">{armSlot}</div> : null}
                 {recordingSlot !== undefined ? <div className="mt-4">{recordingSlot}</div> : null}
                 <p className="mt-3 text-xs text-muted-foreground">{t("console.hint")}</p>
             </section>

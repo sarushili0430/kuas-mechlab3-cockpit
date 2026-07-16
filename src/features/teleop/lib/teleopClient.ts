@@ -59,6 +59,13 @@ export interface TeleopClient {
     readonly disconnect: () => void
     /** 送信ループが届ける「今の目標軸」を更新する */
     readonly setAxes: (axes: DriveAxes) => void
+    /**
+     * アームのサーボ目標角 [肩, 肘] (度) を送る。接続中のみ送信する。
+     * 走行 (vx/wz) と同じ WebSocket に `{"servo":[肩, 肘]}` を流す
+     * (kuas-mechlab3 teleop_server が同一チャネルで解釈する)。
+     * ファームは最後の値を保持する (ラッチ) ため、走行のような連続送信は不要。
+     */
+    readonly sendServo: (servo: readonly [number, number]) => void
 }
 
 const INITIAL_STATE: TeleopSnapshot = { status: "idle", axes: STOP_AXES }
@@ -181,6 +188,11 @@ export function createTeleopClient(options: TeleopClientOptions = {}): TeleopCli
         disconnect,
         setAxes: (axes) => {
             setState({ ...state, axes: clampAxes(axes) })
+        },
+        sendServo: (servo) => {
+            if (socket !== null && socket.readyState === SOCKET_OPEN) {
+                socket.send(JSON.stringify({ servo: [servo[0], servo[1]] }))
+            }
         },
     }
 }
