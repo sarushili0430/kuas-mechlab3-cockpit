@@ -68,5 +68,15 @@ export default tseslint.config([
             "react-refresh/only-export-components": "off",
         },
     },
+    {
+        // ヘッドレスな自律コースランナー (Node/TS CLI)。ブラウザではなく Node で動く。
+        files: ["runner/**/*.ts"],
+        languageOptions: {
+            globals: globals.node,
+        },
+        rules: {
+            "react-refresh/only-export-components": "off",
+        },
+    },
     prettier,
 ])
