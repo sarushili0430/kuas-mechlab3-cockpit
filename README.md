@@ -63,6 +63,29 @@ pnpm build              # 型チェック + 本番ビルド
 機体なしで操縦フローを確認するには Storybook の
 `Cockpit/CockpitScreenContainer → Demo`(常に接続に成功するデモソケット)を使う。
 
+## ラズパイへのデプロイ
+
+ラズパイ上でこのコックピットを配信するには、リポジトリを clone して一発スクリプトを叩くだけ。
+依存インストール → 本番ビルド → http 配信 をまとめて実行する。
+
+```sh
+git clone https://github.com/sarushili0430/kuas-mechlab3-cockpit.git
+cd kuas-mechlab3-cockpit
+./scripts/deploy-raspi.sh              # ビルドして http://<pi>:8000/ で配信(フォアグラウンド)
+./scripts/deploy-raspi.sh --service    # systemd 登録して常時起動&再起動後も自動起動
+```
+
+| オプション     | 役割                                 |
+| -------------- | ------------------------------------ |
+| (なし)         | ビルドして配信(Ctrl-C で停止)        |
+| `--service`    | systemd `ml3-cockpit.service` を登録 |
+| `--build-only` | ビルドのみ(`dist/` 生成)             |
+| `--no-install` | 依存の再インストールをスキップ       |
+
+ポートは `PORT`(既定 `8000`)、バインド先は `HOST`(既定 `0.0.0.0`)で上書きできる
+(`8080`=カメラ / `9001`=操縦 と衝突しないよう既定を `8000` にしている)。
+コックピットは `http://` で配信される(README 冒頭のとおり混在コンテンツ回避のため)。
+
 ## ディレクトリ構造(feature-based)
 
 ```
